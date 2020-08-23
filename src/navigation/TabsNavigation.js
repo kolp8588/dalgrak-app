@@ -3,7 +3,9 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { COLORS } from "../constants";
 import HomeRoute from "../routes/HomeRoute";
+import EventsRoute from "../routes/EventsRoute";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,13 +14,13 @@ function MyTabBar({ state, descriptors, navigation }) {
     <View style={{ flexDirection: "row" }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
+        const label = route.name;
 
+        const iconName = {
+          Home: "home",
+          Dalgrak: "alpha-d-box",
+          Events: "bell",
+        };
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -29,21 +31,32 @@ function MyTabBar({ state, descriptors, navigation }) {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            if (route.name === "Dalgrak") navigation.navigate("AddDalgrak");
+            if (route.name === "Dalgrak") {
+              navigation.navigate("UploadDalgrak");
+            } else {
+              navigation.setOptions({
+                title: label,
+              });
+              navigation.navigate(label, { name: label });
+            }
           }
         };
 
         return (
           <TouchableOpacity
+            key={label}
             accessibilityRole="button"
             accessibilityStates={isFocused ? ["selected"] : []}
             accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
             onPress={onPress}
             style={{ flex: 1, alignItems: "center" }}
           >
-            <MaterialCommunityIcons name="home" size={30} />
-            <Text style={{ color: isFocused ? "#673ab7" : "#222" }}>
+            <MaterialCommunityIcons
+              name={iconName[label]}
+              size={25}
+              color={isFocused ? COLORS.DALGRAK : "gray"}
+            />
+            <Text style={{ color: isFocused ? COLORS.DALGRAK : "gray" }}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -53,61 +66,12 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
-function TabsNavigation() {
+function TabsNavigation({ navigation, route }) {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          const icons = {
-            Home: "home",
-            AddDalgrak: "alpha-d-box",
-            Events: "bell",
-          };
-          return (
-            <MaterialCommunityIcons
-              name={icons[route.name]}
-              color={color}
-              size={size}
-            />
-          );
-        },
-      })}
-      tabBar={(props) => <MyTabBar {...props} />}
-      tabBarOptions={{
-        activeTintColor: "#366671",
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeRoute}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Dalgrak"
-        component={View}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="alpha-d-box"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Events"
-        component={HomeRoute}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={size} />
-          ),
-        }}
-      />
+    <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+      <Tab.Screen name="Home" component={HomeRoute} />
+      <Tab.Screen name="Dalgrak" component={View} />
+      <Tab.Screen name="Events" component={EventsRoute} />
     </Tab.Navigator>
   );
 }

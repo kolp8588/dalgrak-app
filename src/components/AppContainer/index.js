@@ -13,8 +13,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     initApp: () => {
-      dispatch(photoActions.getFeed());
-      dispatch(photoActions.getSearch());
       dispatch(userActions.getNotifications());
       dispatch(userActions.getOwnProfile());
       dispatch(userActions.registerForPush());

@@ -45,6 +45,7 @@ class App extends React.Component {
         require("./assets/images/logo-white.png"),
         require("./assets/images/noPhoto.jpg"),
         require("./assets/images/photoPlaceholder.png"),
+        require("./assets/images/farmer.png"),
       ]),
       Font.loadAsync({
         ...Ionicons.font,

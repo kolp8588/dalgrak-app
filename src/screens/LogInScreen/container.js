@@ -7,11 +7,11 @@ class Container extends Component {
   state = {
     username: "",
     password: "",
-    isSubmitting: false
+    isSubmitting: false,
   };
   static propTypes = {
     login: PropTypes.func.isRequired,
-    fbLogin: PropTypes.func.isRequired
+    fbLogin: PropTypes.func.isRequired,
   };
   render() {
     return (
@@ -24,10 +24,10 @@ class Container extends Component {
       />
     );
   }
-  _changeUsername = text => {
+  _changeUsername = (text) => {
     this.setState({ username: text });
   };
-  _changePassword = text => {
+  _changePassword = (text) => {
     this.setState({ password: text });
   };
   _submit = async () => {
@@ -36,7 +36,7 @@ class Container extends Component {
     if (!isSubmitting) {
       if (username && password) {
         this.setState({
-          isSubmitting: true
+          isSubmitting: true,
         });
         const loginResult = await login(username, password);
         if (!loginResult) {

@@ -3,8 +3,9 @@ import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigation from "./TabsNavigation";
+import CategoryScreen from "../screens/CategoryScreen";
+import DargrakBasicScreen from "../screens/DargrakBasicScreen";
 
-import AddDalgrak from "../screens/AddDalgrakScreen";
 const Stack = createStackNavigator();
 
 class RootNavigation extends Component {
@@ -15,15 +16,22 @@ class RootNavigation extends Component {
           <Stack.Screen
             name="Tabs"
             component={TabsNavigation}
+            options={{ title: "Home" }}
+          />
+          <Stack.Screen
+            name="UploadDalgrak"
+            component={DargrakBasicScreen}
             options={{
-              headerTitle: false,
+              title: "달그락 올리기",
+              headerBackTitleVisible: false,
             }}
           />
           <Stack.Screen
-            name="AddDalgrak"
-            component={AddDalgrak}
+            name="Category"
+            component={CategoryScreen}
             options={{
               headerTitle: false,
+              headerBackTitleVisible: false,
             }}
           />
         </Stack.Navigator>

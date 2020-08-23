@@ -40,46 +40,24 @@ function setNotifications(notifications) {
 }
 
 // API Actions
-// function login(username, password) {
-//   return dispatch => {
-//     return fetch(`${API_URL}/rest-auth/login/`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({
-//         username,
-//         password
-//       })
-//     })
-//       .then(response => response.json())
-//       .then(json => {
-//         if (json.user && json.token) {
-//           dispatch(setLogIn(json.token));
-//           dispatch(setUser(json.user));
-//           return true;
-//         } else {
-//           return false;
-//         }
-//       });
-//   };
-// }
+
 function login(username, password) {
   return async (dispatch) => {
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(username, password)
-      .then((result) => {
-        let user = result.user;
-        console.log(user.uid);
-        console.log(user);
-        dispatch(setLogIn(user.uid));
-        dispatch(setUser(user));
+    try {
+      const response = await firebase
+        .auth()
+        .signInWithEmailAndPassword(username, password);
+      if (response && response.user) {
+        dispatch(setLogIn(response.user.uid));
+        dispatch(setUser(response.user));
         return true;
-      })
-      .catch(() => {
+      } else {
         return false;
-      });
+      }
+    } catch (error) {
+      console.log(error.message);
+      return false;
+    }
   };
 }
 function facebookLogin() {
@@ -107,6 +85,7 @@ function facebookLogin() {
             dispatch(setUser(json.user));
             return true;
           } else {
+            console.log("I'm Here!!");
             return false;
           }
         });
