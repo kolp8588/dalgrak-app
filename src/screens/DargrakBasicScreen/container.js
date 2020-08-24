@@ -7,25 +7,31 @@ class Container extends Component {
   state = {
     isSelected: false,
   };
-  componentDidMount() {
+  componentDidMount() {}
+  componentWillUnmount() {
     this.props.refreshStates();
-    console.log("Hello Mount", this.props.category);
   }
 
   render() {
     return (
       <DargrakBasicScreen
         {...this.state}
-        pickPhoto={this._pickPhoto}
+        {...this.props}
         pickCategory={this._pickCategory}
+        getCategoryImage={this._getCategoryImage}
       />
     );
   }
-  _pickItem = (item) => {
-    this.setState({
-      pickedItem: item,
-    });
+  _getCategoryImage = async (item) => {
+    console.log("Hey!");
+    const url = await firebase
+      .storage()
+      .ref("images/categories/apple.jpg")
+      .getDownloadURL();
+    console.log(url);
+    return url;
   };
+
   _pickCategory = async () => {
     const parent = {
       depth: -1,
@@ -45,13 +51,13 @@ class Container extends Component {
     }
   };
 
-  _approveItem = () => {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    const { pickedItem } = this.state;
-    navigate("UploadPhoto", { item: pickedItem });
-  };
+  // _approveItem = () => {
+  //   const {
+  //     navigation: { navigate },
+  //   } = this.props;
+  //   const { pickedItem } = this.state;
+  //   navigate("UploadPhoto", { item: pickedItem });
+  // };
 }
 
 export default Container;

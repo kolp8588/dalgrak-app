@@ -7,8 +7,13 @@ import RootNavigation from "../../navigation/RootNavigation";
 class AppContainer extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    initApp: PropTypes.func.isRequired
+    initApp: PropTypes.func.isRequired,
   };
+  componentDidMount() {
+    const { initApp } = this.props;
+    initApp();
+  }
+
   render() {
     const { isLoggedIn, profile } = this.props;
     return (
@@ -27,8 +32,8 @@ class AppContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
+    backgroundColor: "#fff",
+  },
 });
 
 export default AppContainer;

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import AppContainer from "./presenter";
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as dalgrakActions } from "../../redux/modules/dalgrak";
 
 const mapStateToProps = (state, ownProps) => {
   const { user } = state;
@@ -13,9 +14,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     initApp: () => {
-      dispatch(userActions.getNotifications());
-      dispatch(userActions.getOwnProfile());
-      dispatch(userActions.registerForPush());
+      dispatch(dalgrakActions.refreshStates());
+      // dispatch(userActions.getNotifications());
+      // dispatch(userActions.getOwnProfile());
+      // dispatch(userActions.registerForPush());
     },
   };
 };

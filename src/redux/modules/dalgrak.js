@@ -1,5 +1,6 @@
 // Imports
 import * as firebase from "firebase";
+import "firebase/firestore";
 import { actionCreators as userActions } from "./user";
 
 // Actions

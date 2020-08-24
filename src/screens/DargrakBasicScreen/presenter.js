@@ -20,7 +20,7 @@ const { height, width } = Dimensions.get("window");
 const DargrakBasicScreen = (props) => (
   <View style={COMMON_STYLES.CONTAINER}>
     <StatusBar hidden={true} />
-    {!props.isSelected && (
+    {!props.category && (
       <View style={[COMMON_STYLES.FLEX_START, { marginHorizontal: 20 }]}>
         <Text
           style={{
@@ -48,6 +48,19 @@ const DargrakBasicScreen = (props) => (
           }}
         />
         <Button title="선택하기" onPress={() => props.pickCategory()}></Button>
+      </View>
+    )}
+    {props.category && (
+      <View>
+        <Text>{props.category.name}</Text>
+        <Image
+          source={{ url: props.getCategoryImage(props.category) }}
+          style={{
+            width: 200,
+            height: 200,
+            marginBottom: 40,
+          }}
+        />
       </View>
     )}
     {props.photos && (
