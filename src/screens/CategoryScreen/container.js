@@ -25,36 +25,20 @@ class Container extends Component {
       pickedItem: item,
     });
   };
-  _pickCategory = (depth, parent) => {
-    console.log("@@@@@@@@@@PARENT : ", parent);
-    firebase
-      .database()
-      .ref("categories")
-      .orderByChild("parent")
-      .equalTo(parent)
-      .on("value", (snapshot) => {
-        let result = [];
-        snapshot.forEach((snap) => {
-          const item = snap.val();
-          item.key = snap.key;
-          result.push(item);
-        });
-        const {
-          navigation: { navigate },
-        } = this.props;
-        this.props.navigation.push("Category", {
-          parent: parent,
-          categories: result,
-        });
-      });
-  };
+  _pickCategory = async (parent) => {
+    const { getCategories } = this.props;
+    const result = await getCategories(parent);
 
-  _approveItem = () => {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    const { pickedItem } = this.state;
-    navigate("UploadPhoto", { item: pickedItem });
+    if (result !== null) {
+      this.props.navigation.push("Category", {
+        categories: result,
+      });
+    } else if (this.props.category !== null) {
+      // Go back to DargrakBasicScreen
+      this.props.navigation.goBack();
+      this.props.navigation.goBack();
+      this.props.navigation.goBack();
+    }
   };
 }
 
