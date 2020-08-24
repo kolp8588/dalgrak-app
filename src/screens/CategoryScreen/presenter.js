@@ -19,7 +19,7 @@ class CategoryScreen extends Component {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => this.props.pickCategory(this.props.depth + 1, item.name)}
+        onPress={() => this.props.pickCategory(item)}
       >
         <Text style={styles.title}>{item.name}</Text>
       </TouchableOpacity>
@@ -32,7 +32,7 @@ class CategoryScreen extends Component {
           contentContainerStyle={COMMON_STYLES.LIST}
           data={this.props.categories}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item.key}
+          keyExtractor={(item) => item.id}
         />
       </SafeAreaView>
     );
