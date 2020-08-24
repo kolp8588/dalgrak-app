@@ -47,10 +47,7 @@ const DargrakBasicScreen = (props) => (
             marginBottom: 40,
           }}
         />
-        <Button
-          title="선택하기"
-          onPress={() => props.pickCategory(props.depth)}
-        ></Button>
+        <Button title="선택하기" onPress={() => props.pickCategory()}></Button>
       </View>
     )}
     {props.photos && (
