@@ -2,12 +2,21 @@ import { connect } from "react-redux";
 import Container from "./container";
 import { actionCreators as dalgrakActions } from "../../redux/modules/dalgrak";
 
+const mapStateToProps = (state, ownProps) => {
+  const {
+    dalgrak: { category },
+  } = state;
+
+  return {
+    category,
+  };
+};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getCategories: (depth, parent) => {
-      return dispatch(dalgrakActions.getCategories(depth, parent));
+    getCategories: (parent) => {
+      return dispatch(dalgrakActions.getCategories(parent));
     },
   };
 };
 
-export default connect(null, mapDispatchToProps)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
