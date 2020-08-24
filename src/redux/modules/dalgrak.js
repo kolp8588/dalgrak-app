@@ -4,44 +4,78 @@ import { actionCreators as userActions } from "./user";
 
 // Actions
 
-const SET_FEED = "SET_FEED";
-const SET_SEARCH = "SET_SEARCH";
+const SET_CATEGORY = "SET_CATEGORY";
+const REFRESH_STATES = "REFRESH_STATES";
 
 // Action Creators
 
-function setFeed(feed) {
+function setCategory(category) {
   return {
-    type: SET_FEED,
-    feed,
+    type: SET_CATEGORY,
+    category,
   };
 }
-
-function setSearch(search) {
+function refreshStates() {
   return {
-    type: SET_SEARCH,
-    search,
+    type: REFRESH_STATES,
   };
 }
 
 // API Actions
-
-function getCategories() {
+function login(username, password) {
   return async (dispatch) => {
-    const response = await firebase
-      .database()
-      .ref("categories")
-      .orderByChild("depth")
-      .equalTo(depth);
-    const result = [];
+    try {
+      const response = await firebase
+        .auth()
+        .signInWithEmailAndPassword(username, password);
+      if (response && response.user) {
+        dispatch(setLogIn(response.user.uid));
+        dispatch(setUser(response.user));
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error.message);
+      return false;
+    }
+  };
+}
+// function refreshStates() {
+//   dispatch(setInitialStates);
+// }
 
-    console.log(response);
-    response.on("value", (snapshot) => {
-      snapshot.forEach((snap) => {
-        const item = snap.val();
-        item.key = snap.key;
-        result.push(item);
-      });
-    });
+function getCategories(parent) {
+  return async (dispatch) => {
+    console.log("Last", parent);
+    if (parent.depth === 2 && parent.name !== "") {
+      dispatch(setCategory(parent));
+      return null;
+    }
+    const result = [];
+    try {
+      const collection = await firebase
+        .firestore()
+        .collection("categories")
+        .where("depth", "==", parent.depth + 1)
+        .where("parent", "==", parent.name)
+        .get();
+
+      if (!collection.empty) {
+        for (let category of collection.docs) {
+          const item = category.data();
+          item.id = category.id;
+          result.push(item);
+        }
+        return result;
+      } else {
+        console.log("NO DATA");
+        return null;
+      }
+    } catch (error) {
+      console.error("ERROR : ", error.message);
+      return null;
+    }
   };
 }
 
@@ -53,10 +87,10 @@ const initialState = {};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_FEED:
-      return applySetFeed(state, action);
-    case SET_SEARCH:
-      return applySetSearch(state, action);
+    case SET_CATEGORY:
+      return applySetCategory(state, action);
+    case REFRESH_STATES:
+      return applyRefreshStates();
     default:
       return state;
   }
@@ -64,26 +98,24 @@ function reducer(state = initialState, action) {
 
 // Reducer Actions
 
-function applySetFeed(state, action) {
-  const { feed } = action;
+function applySetCategory(state, action) {
+  const { category } = action;
   return {
     ...state,
-    feed,
+    category,
   };
 }
 
-function applySetSearch(state, action) {
-  const { search } = action;
-  return {
-    ...state,
-    search,
-  };
+function applyRefreshStates() {
+  console.log("Init!!");
+  return initialState;
 }
 
 // Exports
 
 const actionCreators = {
   getCategories,
+  refreshStates,
 };
 
 export { actionCreators };
