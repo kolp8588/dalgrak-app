@@ -23,6 +23,7 @@ export const COMMON_STYLES = StyleSheet.create({
   },
   FLEX_START: {
     flex: 1,
+    alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",

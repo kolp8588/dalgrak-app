@@ -23,33 +23,15 @@ function refreshStates() {
 }
 
 // API Actions
-function login(username, password) {
-  return async (dispatch) => {
-    try {
-      const response = await firebase
-        .auth()
-        .signInWithEmailAndPassword(username, password);
-      if (response && response.user) {
-        dispatch(setLogIn(response.user.uid));
-        dispatch(setUser(response.user));
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.log(error.message);
-      return false;
-    }
-  };
-}
-// function refreshStates() {
-//   dispatch(setInitialStates);
-// }
 
 function getCategories(parent) {
   return async (dispatch) => {
-    console.log("Last", parent);
     if (parent.depth === 2 && parent.name !== "") {
+      const url = await firebase
+        .storage()
+        .ref("images/categories/" + "apple" + ".jpg")
+        .getDownloadURL();
+      parent.imageUrl = url;
       dispatch(setCategory(parent));
       return null;
     }
@@ -58,7 +40,7 @@ function getCategories(parent) {
       const collection = await firebase
         .firestore()
         .collection("categories")
-        .where("depth", "==", parent.depth + 1)
+        // .where("depth", "==", parent.depth + 1)
         .where("parent", "==", parent.name)
         .get();
 
@@ -108,7 +90,6 @@ function applySetCategory(state, action) {
 }
 
 function applyRefreshStates() {
-  console.log("Init!!");
   return initialState;
 }
 

@@ -7,7 +7,6 @@ class Container extends Component {
   state = {
     isSelected: false,
   };
-  componentDidMount() {}
   componentWillUnmount() {
     this.props.refreshStates();
   }
@@ -18,19 +17,9 @@ class Container extends Component {
         {...this.state}
         {...this.props}
         pickCategory={this._pickCategory}
-        getCategoryImage={this._getCategoryImage}
       />
     );
   }
-  _getCategoryImage = async (item) => {
-    console.log("Hey!");
-    const url = await firebase
-      .storage()
-      .ref("images/categories/apple.jpg")
-      .getDownloadURL();
-    console.log(url);
-    return url;
-  };
 
   _pickCategory = async () => {
     const parent = {
@@ -50,14 +39,6 @@ class Container extends Component {
       });
     }
   };
-
-  // _approveItem = () => {
-  //   const {
-  //     navigation: { navigate },
-  //   } = this.props;
-  //   const { pickedItem } = this.state;
-  //   navigate("UploadPhoto", { item: pickedItem });
-  // };
 }
 
 export default Container;
