@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text, StatusBar, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StatusBar, StyleSheet } from "react-native";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 import RootNavigation from "../../navigation/RootNavigation";
 
@@ -17,14 +17,14 @@ class AppContainer extends Component {
   render() {
     const { isLoggedIn, profile } = this.props;
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StatusBar hidden={false} />
         {isLoggedIn && profile ? (
           <RootNavigation screenProps={{ username: profile.username }} />
         ) : (
           <LoggedOutNavigation />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 }

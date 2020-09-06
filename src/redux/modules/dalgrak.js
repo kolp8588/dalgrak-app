@@ -61,7 +61,26 @@ function getCategories(parent) {
     }
   };
 }
-
+function submitDalgrak(dalgrak) {
+  return async (dispatch, getState) => {
+    const userId = firebase.auth().currentUser.uid;
+    const {
+      dalgrak: { category },
+    } = getState();
+    dalgrak.userId = userId;
+    dalgrak.category = category.name;
+    console.log("Data : ", dalgrak);
+    const response = await firebase
+      .firestore()
+      .collection("dalgraks")
+      .add(dalgrak);
+    if (response) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
 // Initial State
 
 const initialState = {};
@@ -98,6 +117,7 @@ function applyRefreshStates() {
 const actionCreators = {
   getCategories,
   refreshStates,
+  submitDalgrak,
 };
 
 export { actionCreators };

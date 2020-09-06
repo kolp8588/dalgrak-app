@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getCategories: (parent) => {
       return dispatch(dalgrakActions.getCategories(parent));
     },
+    submit: (dalgrak) => {
+      return dispatch(dalgrakActions.submitDalgrak(dalgrak));
+    },
     refreshStates: () => {
       return dispatch(dalgrakActions.refreshStates());
     },

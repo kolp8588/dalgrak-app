@@ -12,10 +12,10 @@ import {
   Picker,
 } from "react-native";
 import PropTypes from "prop-types";
-import FitImage from "react-native-fit-image";
-import { MaterialIcons } from "@expo/vector-icons";
-import { COMMON_STYLES, FONTS } from "../../constants";
+import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
 import { TextInput } from "react-native-gesture-handler";
+import CalendarPicker from "react-native-calendar-picker";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const { height, width } = Dimensions.get("window");
 
@@ -55,6 +55,7 @@ const DargrakBasicScreen = (props) => (
       <View style={COMMON_STYLES.FLEX_START}>
         <ScrollView
           style={{
+            flex: 1,
             alignSelf: "stretch",
           }}
           contentContainerStyle={{ alignItems: "center" }}
@@ -104,63 +105,118 @@ const DargrakBasicScreen = (props) => (
                 borderColor: "lightgray",
                 borderWidth: 1,
               }}
-              onChangeText={(text) => onChangeText(text)}
+              keyboardType="numeric"
+              onChangeText={(text) => props.onQuantityChange(text)}
               placeholder="입력"
             />
-            <Picker
+            {/* <Picker
               style={{
                 height: 50,
                 width: 100,
-                borderColor: "lightgray",
-                borderWidth: 1,
               }}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }
+              selectedValue={props.unit}
+              onValueChange={(itemValue) => props.onUnitChange(itemValue)}
             >
               <Picker.Item label="kg" value="kg" />
               <Picker.Item label="팩" value="ea" />
-            </Picker>
+            </Picker>*/}
+            <DropDownPicker
+              style={{ width: 100 }}
+              items={[
+                { label: "kg", value: "kg" },
+                { label: "팩", value: "ea" },
+              ]}
+              defaultValue={props.unit}
+              itemStyle={{
+                justifyContent: "flex-start",
+              }}
+              onChangeItem={(item) => props.onUnitChange(item.value)}
+            />
+          </View>
+
+          <Text
+            style={{
+              alignSelf: "flex-start",
+              marginTop: 50,
+              marginBottom: 50,
+              marginLeft: 20,
+              fontSize: FONTS.SIZE.TITLE,
+            }}
+          >
+            마감일
+          </Text>
+
+          <View style={{ marginBottom: 50 }}>
+            <CalendarPicker
+              // maxDate={maxDate}
+              weekdays={["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]}
+              months={[
+                "January",
+                "Febraury",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+              ]}
+              previousTitle="<"
+              nextTitle=">"
+              selectedDayColor={COLORS.DALGRAK}
+              selectedDayTextColor="white"
+              scaleFactor={375}
+              onDateChange={props.onDateChange}
+              onDateChange={(date) => props.onDateChange(date.toString())}
+            />
           </View>
         </ScrollView>
+        <View
+          style={{
+            alignSelf: "stretch",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              alignSelf: "stretch",
+              alignItems: "center",
+              backgroundColor:
+                (props.unit != "") & (props.quantity != "") & (props.date != "")
+                  ? COLORS.DALGRAK
+                  : "gray",
+            }}
+            disabled={
+              !(
+                (props.unit != "") &
+                (props.quantity != "") &
+                (props.date != "")
+              )
+            }
+            onPressOut={props.submit}
+          >
+            <Text
+              style={{
+                marginVertical: 10,
+                fontSize: FONTS.SIZE.CONTENTS,
+                color: "white",
+              }}
+            >
+              등록
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )}
   </View>
 );
 
 DargrakBasicScreen.propTypes = {
-  pickedPhoto: PropTypes.object,
-  photos: PropTypes.array,
-  approvePhoto: PropTypes.func,
+  unit: PropTypes.string.isRequired,
+  quantity: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  pictureContainer: {
-    flex: 2,
-  },
-  photos: {
-    flex: 1,
-  },
-  scrollViewContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  smallPhoto: {
-    width: width / 3,
-    height: width / 3,
-  },
-  action: {
-    backgroundColor: "transparent",
-    height: 40,
-    width: 40,
-    alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-  },
-});
 
 export default DargrakBasicScreen;
