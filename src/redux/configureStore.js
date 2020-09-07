@@ -3,7 +3,7 @@ import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import user from "./modules/user";
-import dalgrak from "./modules/dalgrak";
+import dalgraks from "./modules/dalgrak";
 
 const middlewares = [thunk];
 
@@ -14,7 +14,7 @@ const persistConfig = {
 
 const reducer = persistCombineReducers(persistConfig, {
   user,
-  dalgrak,
+  dalgraks,
 });
 
 const configureStore = () => {
