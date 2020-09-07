@@ -15,40 +15,23 @@ const { width, height } = Dimensions.get("window");
 
 class Dalgrak extends Component {
   render() {
-    //const { navigation } = this.props;
+    const { navigation } = this.props;
     return (
+      // <View>
+      //   <Text>HELLO</Text>
+      // </View>
+      <View>
+        <FadeIn>
+          <Image
+            source={{ uri: this.props.imageUrl }}
+            style={{ width: 200, height: 200 }}
+          />
+        </FadeIn>
+      </View>
       // <View style={styles.photo}>
-      //   <TouchableOpacity
-      //     onPressOut={() =>
-      //       navigation.navigate("ProfileDetail", {
-      //         user: props.creator,
-      //       })
-      //     }
-      //   >
-      //     <View style={styles.header}>
-      //       <FadeIn>
-      //         <Image
-      //           source={
-      //             props.creator.profile_image
-      //               ? {
-      //                   uri: props.creator.profile_image,
-      //                 }
-      //               : require("../../../assets/images/noPhoto.jpg")
-      //           }
-      //           style={styles.avatar}
-      //         />
-      //       </FadeIn>
-      //       <View>
-      //         <Text style={styles.author}>{props.creator.username}</Text>
-      //         {props.location && (
-      //           <Text style={styles.location}>{props.location}</Text>
-      //         )}
-      //       </View>
-      //     </View>
-      //   </TouchableOpacity>
       //   <FadeIn>
       //     <Image
-      //       source={{ uri: props.file }}
+      //       source={{ uri: this.props.file }}
       //       style={{ width, height: props.is_vertical ? 600 : 300 }}
       //     />
       //   </FadeIn>
@@ -64,11 +47,11 @@ class Dalgrak extends Component {
       //         onPressOut={() => navigation.navigate("Comments")}
       //       >
       //         <View style={styles.commentsLink}>
-      //           {props.comments.length === 1 ? (
+      //           {this.props.comments.length === 1 ? (
       //             <Text style={styles.linkText}>View 1 comment</Text>
       //           ) : (
       //             <Text style={styles.linkText}>
-      //               View all {props.comments.length} comments
+      //               View all {this.props.comments.length} comments
       //             </Text>
       //           )}
       //         </View>
@@ -79,9 +62,6 @@ class Dalgrak extends Component {
       //     </Text>
       //   </View>
       // </View>
-      <View>
-        <Text>HELLO?</Text>
-      </View>
     );
   }
 }

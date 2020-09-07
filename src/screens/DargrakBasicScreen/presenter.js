@@ -112,17 +112,6 @@ const DargrakBasicScreen = (props) => (
               onChangeText={(text) => props.onQuantityChange(text)}
               placeholder="입력"
             />
-            {/* <Picker
-              style={{
-                height: 50,
-                width: 100,
-              }}
-              selectedValue={props.unit}
-              onValueChange={(itemValue) => props.onUnitChange(itemValue)}
-            >
-              <Picker.Item label="kg" value="kg" />
-              <Picker.Item label="팩" value="ea" />
-            </Picker>*/}
             <DropDownPicker
               style={{ width: 100 }}
               items={[

@@ -11,14 +11,11 @@ class Container extends Component {
   static propTypes = {};
   render() {
     return (
-      // <Dalgrak
-      //   handlePress={this._handlePress}
-      //   {...this.props}
-      //   {...this.state}
-      // />
-      <View>
-        <Text>HEY!</Text>
-      </View>
+      <Dalgrak
+        handlePress={this._handlePress}
+        {...this.props}
+        {...this.state}
+      />
     );
   }
   _handlePress = () => {

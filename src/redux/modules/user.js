@@ -46,7 +46,10 @@ function login(username, password) {
     try {
       const response = await firebase
         .auth()
-        .signInWithEmailAndPassword(username, password);
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(function () {
+          return firebase.auth().signInWithEmailAndPassword(username, password);
+        });
       if (response && response.user) {
         dispatch(setLogIn(response.user.uid));
         dispatch(setUser(response.user));

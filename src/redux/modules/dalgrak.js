@@ -7,6 +7,7 @@ import { actionCreators as userActions } from "./user";
 
 const SET_CATEGORY = "SET_CATEGORY";
 const REFRESH_STATES = "REFRESH_STATES";
+const SET_FEED = "SET_FEED";
 
 // Action Creators
 
@@ -22,44 +23,45 @@ function refreshStates() {
   };
 }
 
+function setFeed(feed) {
+  return {
+    type: SET_FEED,
+    feed,
+  };
+}
+
 // API Actions
 function getFeed() {
-  return async (dispatch) => {
-    const userId = firebase.auth().currentUser.uid;
+  return async (dispatch, getState) => {
+    const {
+      user: { token },
+    } = getState();
     try {
       const result = [];
       const collection = await firebase
         .firestore()
         .collection("dalgraks")
-        .where("userId", "==", userId)
+        .where("userId", "==", token)
         .get();
-
       if (!collection.empty) {
         for (let dalgrak of collection.docs) {
           const item = dalgrak.data();
           item.id = dalgrak.id;
           result.push(item);
         }
-        console.log(result);
-        return result;
+        console.log("RES:", result);
+        dispatch(setFeed(result));
       } else {
         console.log("NO DATA");
-        return null;
       }
     } catch (error) {
       console.error("ERROR : ", error.message);
-      return null;
     }
   };
 }
 function getCategories(parent) {
   return async (dispatch) => {
     if (parent.depth === 2 && parent.name !== "") {
-      const url = await firebase
-        .storage()
-        .ref("images/categories/" + "apple" + ".jpg")
-        .getDownloadURL();
-      parent.imageUrl = url;
       dispatch(setCategory(parent));
       return null;
     }
@@ -68,13 +70,20 @@ function getCategories(parent) {
       const collection = await firebase
         .firestore()
         .collection("categories")
-        // .where("depth", "==", parent.depth + 1)
         .where("parent", "==", parent.name)
         .get();
 
       if (!collection.empty) {
         for (let category of collection.docs) {
           const item = category.data();
+          try {
+            item.imageUrl = await firebase
+              .storage()
+              .ref(item.imageRef)
+              .getDownloadURL();
+          } catch {
+            console.log("NO_IMAGE_URL");
+          }
           item.id = category.id;
           result.push(item);
         }
@@ -91,12 +100,13 @@ function getCategories(parent) {
 }
 function submitDalgrak(dalgrak) {
   return async (dispatch, getState) => {
-    const userId = firebase.auth().currentUser.uid;
     const {
-      dalgrak: { category },
+      dalgraks: { category },
+      user: { token },
     } = getState();
-    dalgrak.userId = userId;
+    dalgrak.userId = token;
     dalgrak.category = category.name;
+    dalgrak.imageUrl = category.imageUrl;
     console.log("Data : ", dalgrak);
     const response = await firebase
       .firestore()
@@ -117,6 +127,8 @@ const initialState = {};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_FEED:
+      return applySetFeed(state, action);
     case SET_CATEGORY:
       return applySetCategory(state, action);
     case REFRESH_STATES:
@@ -127,6 +139,13 @@ function reducer(state = initialState, action) {
 }
 
 // Reducer Actions
+function applySetFeed(state, action) {
+  const { feed } = action;
+  return {
+    ...state,
+    feed,
+  };
+}
 
 function applySetCategory(state, action) {
   const { category } = action;
