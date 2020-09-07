@@ -4,7 +4,7 @@ import { actionCreators as dalgrakActions } from "../../redux/modules/dalgrak";
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    dalgrak: { category },
+    dalgraks: { category },
   } = state;
 
   return {
