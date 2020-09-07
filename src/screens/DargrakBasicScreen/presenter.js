@@ -16,6 +16,7 @@ import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
 import { TextInput } from "react-native-gesture-handler";
 import CalendarPicker from "react-native-calendar-picker";
 import DropDownPicker from "react-native-dropdown-picker";
+import FadeIn from "react-native-fade-in-image";
 
 const { height, width } = Dimensions.get("window");
 
@@ -70,15 +71,17 @@ const DargrakBasicScreen = (props) => (
           >
             {props.category.name}
           </Text>
-          <Image
-            source={{ uri: props.category.imageUrl }}
-            style={{
-              width: 200,
-              height: 200,
-              marginTop: 40,
-              borderRadius: 100,
-            }}
-          />
+          <FadeIn>
+            <Image
+              source={{ uri: props.category.imageUrl }}
+              style={{
+                width: 200,
+                height: 200,
+                marginTop: 40,
+                borderRadius: 100,
+              }}
+            />
+          </FadeIn>
           <Text
             style={{
               alignSelf: "flex-start",
