@@ -23,7 +23,35 @@ function refreshStates() {
 }
 
 // API Actions
+function getFeed() {
+  return async (dispatch) => {
+    const userId = firebase.auth().currentUser.uid;
+    try {
+      const result = [];
+      const collection = await firebase
+        .firestore()
+        .collection("dalgraks")
+        .where("userId", "==", userId)
+        .get();
 
+      if (!collection.empty) {
+        for (let dalgrak of collection.docs) {
+          const item = dalgrak.data();
+          item.id = dalgrak.id;
+          result.push(item);
+        }
+        console.log(result);
+        return result;
+      } else {
+        console.log("NO DATA");
+        return null;
+      }
+    } catch (error) {
+      console.error("ERROR : ", error.message);
+      return null;
+    }
+  };
+}
 function getCategories(parent) {
   return async (dispatch) => {
     if (parent.depth === 2 && parent.name !== "") {
@@ -115,6 +143,7 @@ function applyRefreshStates() {
 // Exports
 
 const actionCreators = {
+  getFeed,
   getCategories,
   refreshStates,
   submitDalgrak,
