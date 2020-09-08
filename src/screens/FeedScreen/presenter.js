@@ -11,6 +11,7 @@ import Dalgrak from "../../components/Dalgrak";
 
 const FeedScreen = (props) => (
   <ScrollView
+    style={{ backgroundColor: "white" }}
     refreshControl={
       <RefreshControl
         refreshing={props.isFetching}
