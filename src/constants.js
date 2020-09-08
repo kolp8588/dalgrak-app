@@ -9,8 +9,8 @@ export const COLORS = {
 
 export const FONTS = {
   SIZE: {
-    TITLE: 30,
-    CONTENTS: 20,
+    TITLE: 25,
+    CONTENTS: 18,
   },
 };
 
