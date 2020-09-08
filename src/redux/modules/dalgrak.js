@@ -107,12 +107,14 @@ function submitDalgrak(dalgrak) {
     dalgrak.userId = token;
     dalgrak.category = category.name;
     dalgrak.imageUrl = category.imageUrl;
+    dalgrak.participants = 0;
     console.log("Data : ", dalgrak);
     const response = await firebase
       .firestore()
       .collection("dalgraks")
       .add(dalgrak);
     if (response) {
+      dispatch(getFeed());
       return true;
     } else {
       return false;
@@ -132,7 +134,7 @@ function reducer(state = initialState, action) {
     case SET_CATEGORY:
       return applySetCategory(state, action);
     case REFRESH_STATES:
-      return applyRefreshStates();
+      return applyRefreshStates(state);
     default:
       return state;
   }
@@ -155,8 +157,10 @@ function applySetCategory(state, action) {
   };
 }
 
-function applyRefreshStates() {
-  return initialState;
+function applyRefreshStates(state) {
+  return {
+    feed: state.feed,
+  };
 }
 
 // Exports
