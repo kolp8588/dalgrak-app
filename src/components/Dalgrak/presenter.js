@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import FadeIn from "react-native-fade-in-image";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS, FONTS } from "../../constants";
 
 const { width, height } = Dimensions.get("window");
 
@@ -17,16 +18,54 @@ class Dalgrak extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      // <View>
-      //   <Text>HELLO</Text>
-      // </View>
-      <View>
-        <FadeIn>
-          <Image
-            source={{ uri: this.props.imageUrl }}
-            style={{ width: 200, height: 200 }}
-          />
-        </FadeIn>
+      <View style={styles.dalgrak}>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <FadeIn>
+            <Image
+              source={{ uri: this.props.imageUrl }}
+              style={{ width: 100, height: 100 }}
+            />
+          </FadeIn>
+          <View
+            style={{
+              marginLeft: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: FONTS.SIZE.CONTENTS,
+                color: COLORS.DALGRAK,
+              }}
+            >
+              {this.props.category}
+            </Text>
+            <Text
+              style={{
+                fontSize: FONTS.SIZE.CONTENTS,
+              }}
+            >
+              {this.props.quantity} {this.props.unit}
+            </Text>
+            <Text
+              style={{
+                fontSize: FONTS.SIZE.CONTENTS,
+              }}
+            >
+              마감일 : {this.props.parseDate(this.props.date)}
+            </Text>
+            <Text
+              style={{
+                fontSize: FONTS.SIZE.CONTENTS,
+              }}
+            >
+              참여업체 : {this.props.participants}
+            </Text>
+          </View>
+        </View>
       </View>
       // <View style={styles.photo}>
       //   <FadeIn>
@@ -67,9 +106,10 @@ class Dalgrak extends Component {
 }
 
 const styles = StyleSheet.create({
-  photo: {
+  dalgrak: {
     width,
-    marginBottom: 10,
+    marginVertical: 10,
+    marginHorizontal: 10,
   },
   header: {
     paddingHorizontal: 15,
