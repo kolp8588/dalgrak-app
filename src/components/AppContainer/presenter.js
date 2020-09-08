@@ -11,7 +11,6 @@ class AppContainer extends Component {
   };
   componentDidMount() {
     const { initApp } = this.props;
-    initApp();
   }
 
   render() {
