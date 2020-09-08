@@ -13,11 +13,23 @@ class Container extends Component {
     return (
       <Dalgrak
         handlePress={this._handlePress}
+        parseDate={this._parseDate}
         {...this.props}
         {...this.state}
       />
     );
   }
+  _parseDate = (date) => {
+    const words = date.split(" ");
+    let result = "";
+    for (let i = 0; i <= 3; i++) {
+      result = result.concat(words[i]);
+      if (i != 3) {
+        result = result.concat("/");
+      }
+    }
+    return result;
+  };
   _handlePress = () => {
     const { dispatchLike } = this.props;
     const { isLiked } = this.state;
