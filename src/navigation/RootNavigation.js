@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigation from "./TabsNavigation";
 import CategoryScreen from "../screens/CategoryScreen";
 import DargrakBasicScreen from "../screens/DargrakBasicScreen";
+import EventsRoute from "../routes/EventsRoute";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +16,9 @@ class RootNavigation extends Component {
           <Stack.Screen
             name="Tabs"
             component={TabsNavigation}
-            options={{ title: "Home" }}
+            options={{
+              headerShown: false,
+            }}
           />
           <Stack.Screen
             name="UploadDalgrak"
@@ -34,6 +36,7 @@ class RootNavigation extends Component {
               headerBackTitleVisible: false,
             }}
           />
+          <Stack.Screen name="Events" component={EventsRoute} options={{}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
