@@ -5,13 +5,20 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { COLORS } from "../constants";
 import HomeRoute from "../routes/HomeRoute";
-import EventsRoute from "../routes/EventsRoute";
+import ProfileRoute from "../routes/ProfileRoute";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View
+      style={{
+        flexDirection: "row",
+        backgroundColor: "white",
+        borderTopWidth: 1,
+        borderTopColor: "lightgray",
+      }}
+    >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = route.name;
@@ -19,7 +26,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         const iconName = {
           Home: "home",
           Dalgrak: "alpha-d-box",
-          Events: "bell",
+          Profile: "account-circle",
         };
         const isFocused = state.index === index;
 
@@ -49,7 +56,10 @@ function MyTabBar({ state, descriptors, navigation }) {
             accessibilityStates={isFocused ? ["selected"] : []}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             onPress={onPress}
-            style={{ flex: 1, alignItems: "center" }}
+            style={{
+              flex: 1,
+              alignItems: "center",
+            }}
           >
             <MaterialCommunityIcons
               name={iconName[label]}
@@ -71,7 +81,7 @@ function TabsNavigation({ navigation, route }) {
     <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeRoute} />
       <Tab.Screen name="Dalgrak" component={View} />
-      <Tab.Screen name="Events" component={EventsRoute} />
+      <Tab.Screen name="Profile" component={ProfileRoute} />
     </Tab.Navigator>
   );
 }
