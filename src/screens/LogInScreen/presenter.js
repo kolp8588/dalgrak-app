@@ -12,7 +12,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { COLORS } from "../../constants";
 const { width, height } = Dimensions.get("window");
 
 const LogInScreen = (props) => (
@@ -20,7 +20,7 @@ const LogInScreen = (props) => (
     <StatusBar barStyle={"light-content"} />
     <View style={styles.header}>
       <Image
-        source={require("../../../assets/images/logo-white.png")}
+        source={require("../../../assets/images/logo_size.jpg")}
         resizeMode="stretch"
         style={styles.logo}
       />
@@ -78,19 +78,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flex: 1,
-    backgroundColor: "#4E65B4",
+    flex: 2,
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     width,
   },
   logo: {
-    width: 180,
-    height: 65,
-    marginTop: 20,
+    width: 250,
+    height: 250,
+    marginTop: 10,
   },
   content: {
-    flex: 4,
+    flex: 5,
     backgroundColor: "white",
     paddingTop: 50,
     alignItems: "center",
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingHorizontal: 7,
+    backgroundColor: COLORS.DALGRAK,
     height: 50,
     justifyContent: "center",
   },

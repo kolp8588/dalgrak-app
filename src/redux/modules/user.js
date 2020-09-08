@@ -51,6 +51,7 @@ function login(username, password) {
           return firebase.auth().signInWithEmailAndPassword(username, password);
         });
       if (response && response.user) {
+        console.log(response.user);
         dispatch(setLogIn(response.user.uid));
         dispatch(setUser(response.user));
         return true;
@@ -138,71 +139,6 @@ function getOwnProfile() {
         }
       })
       .then((json) => dispatch(setUser(json)));
-  };
-}
-
-function getProfile(username) {
-  return (dispatch, getState) => {
-    const {
-      user: { token },
-    } = getState();
-    return fetch(`${API_URL}/users/${username}/`, {
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          dispatch(logOut());
-        } else {
-          return response.json();
-        }
-      })
-      .then((json) => json);
-  };
-}
-
-function followUser(userId) {
-  return (dispatch, getState) => {
-    const {
-      user: { token },
-    } = getState();
-    return fetch(`${API_URL}/users/${userId}/follow/`, {
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    }).then((response) => {
-      if (response.status === 401) {
-        dispatch(logOut());
-      } else if (response.ok) {
-        return true;
-      } else if (!response.ok) {
-        return false;
-      }
-    });
-  };
-}
-
-function unfollowUser(userId) {
-  return (dispatch, getState) => {
-    const {
-      user: { token },
-    } = getState();
-    return fetch(`${API_URL}/users/${userId}/unfollow/`, {
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    }).then((response) => {
-      if (response.status === 401) {
-        dispatch(logOut());
-      } else if (response.ok) {
-        return true;
-      } else if (!response.ok) {
-        return false;
-      }
-    });
   };
 }
 
@@ -309,9 +245,6 @@ const actionCreators = {
   logOut,
   getNotifications,
   getOwnProfile,
-  followUser,
-  unfollowUser,
-  getProfile,
   registerForPush,
 };
 

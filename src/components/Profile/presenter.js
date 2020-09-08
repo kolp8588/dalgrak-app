@@ -15,62 +15,27 @@ const width = Dimensions.get("window").width;
 class Profile extends Component {
   render() {
     return (
-      <View>
-        <Text>Hello Profile!</Text>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPressOut={this.props.showAS}>
+            <Image
+              source={require("../../../assets/images/noPhoto.jpg")}
+              style={styles.avatar}
+              defaultSource={require("../../../assets/images/noPhoto.jpg")}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 5, backgroundColor: "lightgray" }}></View>
       </View>
     );
   }
 }
-Profile.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  refresh: PropTypes.func.isRequired,
-  profileObject: PropTypes.shape({
-    bio: PropTypes.string,
-    followers_count: PropTypes.number,
-    following_count: PropTypes.number,
-    following: PropTypes.bool,
-    is_self: PropTypes.bool,
-    images: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        creator: PropTypes.shape({
-          profile_image: PropTypes.string,
-          username: PropTypes.string.isRequired,
-        }).isRequired,
-        location: PropTypes.string.isRequired,
-        file: PropTypes.string.isRequired,
-        like_count: PropTypes.number.isRequired,
-        caption: PropTypes.string.isRequired,
-        comments: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            message: PropTypes.string.isRequired,
-            creator: PropTypes.shape({
-              profile_image: PropTypes.string,
-              username: PropTypes.string.isRequired,
-            }).isRequired,
-          })
-        ).isRequired,
-        natural_time: PropTypes.string.isRequired,
-        is_liked: PropTypes.bool.isRequired,
-        is_vertical: PropTypes.bool.isRequired,
-      })
-    ),
-    name: PropTypes.string,
-    post_count: PropTypes.number,
-    profile_image: PropTypes.string,
-    username: PropTypes.string,
-    website: PropTypes.string,
-  }),
-  changeToList: PropTypes.func.isRequired,
-  changeToGrid: PropTypes.func.isRequired,
-  mode: PropTypes.oneOf(["grid", "list"]).isRequired,
-  showAS: PropTypes.func.isRequired,
-};
+Profile.propTypes = {};
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },
   header: {
+    flex: 1,
     flexDirection: "row",
     marginTop: 15,
     paddingLeft: 15,
@@ -78,8 +43,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 50,
   },
   headerColumn: {

@@ -51,12 +51,7 @@ class Container extends Component {
     );
   }
   _showActionSheet = () => {
-    const {
-      profileObject: { is_self },
-    } = this.props;
-    if (is_self) {
-      this.actionSheet.show();
-    }
+    this.actionSheet.show();
   };
   _handleSheetPress = (index) => {
     const { logOut } = this.props;
