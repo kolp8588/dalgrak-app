@@ -9,14 +9,10 @@ class Container extends Component {
     this.state = {};
   }
   static propTypes = {};
+
   render() {
     return (
-      <Dalgrak
-        handlePress={this._handlePress}
-        parseDate={this._parseDate}
-        {...this.props}
-        {...this.state}
-      />
+      <Dalgrak parseDate={this._parseDate} {...this.props} {...this.state} />
     );
   }
   _parseDate = (date) => {
@@ -29,26 +25,6 @@ class Container extends Component {
       }
     }
     return result;
-  };
-  _handlePress = () => {
-    const { dispatchLike } = this.props;
-    const { isLiked } = this.state;
-    dispatchLike(isLiked);
-    if (isLiked) {
-      this.setState((prevState) => {
-        return {
-          isLiked: false,
-          likeCount: prevState.likeCount - 1,
-        };
-      });
-    } else {
-      this.setState((prevState) => {
-        return {
-          isLiked: true,
-          likeCount: prevState.likeCount + 1,
-        };
-      });
-    }
   };
 }
 
