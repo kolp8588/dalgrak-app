@@ -2,14 +2,11 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Dimensions,
   ScrollView,
   TouchableOpacity,
   Image,
-  StatusBar,
   Button,
-  Picker,
 } from "react-native";
 import PropTypes from "prop-types";
 import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
