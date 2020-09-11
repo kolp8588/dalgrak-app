@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { TouchableWithoutFeedback } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
+import DalgrakScreen from "../screens/DalgrakScreen";
 import FeedScreen from "../screens/FeedScreen";
+
 const Stack = createStackNavigator();
 class HomeRoute extends Component {
   render() {
@@ -26,6 +28,13 @@ class HomeRoute extends Component {
                 />
               </TouchableWithoutFeedback>
             ),
+          }}
+        />
+        <Stack.Screen
+          name="dalgrak"
+          component={DalgrakScreen}
+          options={{
+            title: "Dalgrak",
           }}
         />
       </Stack.Navigator>
