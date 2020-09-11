@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import CategoryScreen from "./presenter";
-import * as firebase from "firebase";
 
 class Container extends Component {
   state = {
