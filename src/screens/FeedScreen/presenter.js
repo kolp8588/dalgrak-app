@@ -22,7 +22,10 @@ const FeedScreen = (props) => (
   >
     <View style={styles.container}>
       {props.feed &&
-        props.feed.map((dalgrak) => <Dalgrak {...dalgrak} key={dalgrak.id} />)}
+        props.feed.map((dalgrak, index) => {
+          dalgrak.idx = index;
+          return <Dalgrak {...dalgrak} key={dalgrak.id} />;
+        })}
     </View>
   </ScrollView>
 );
