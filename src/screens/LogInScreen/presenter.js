@@ -11,7 +11,7 @@ import {
   StatusBar,
   ActivityIndicator,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../../constants";
 const { width, height } = Dimensions.get("window");
 
@@ -53,10 +53,24 @@ const LogInScreen = (props) => (
           )}
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
+      <TouchableOpacity style={styles.fbContainer}>
         <View style={styles.fbView}>
-          <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
+          <MaterialCommunityIcons
+            name="facebook-box"
+            size={22}
+            color="#3E99EE"
+          />
           <Text style={styles.fbText}>Log in with Facebook</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.fbContainer}>
+        <View style={styles.fbView}>
+          <MaterialCommunityIcons
+            name="alpha-k-box"
+            size={22}
+            color="#ffe812"
+          />
+          <Text style={styles.fbText}>Log in with Kakao Talk</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -97,14 +111,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   fbContainer: {
-    marginTop: 50,
+    marginTop: 30,
   },
   fbView: {
     flexDirection: "row",
     alignItems: "center",
   },
   fbText: {
-    color: "#3E99EE",
+    color: "gray",
     marginLeft: 10,
     fontWeight: "600",
     fontSize: 14,
