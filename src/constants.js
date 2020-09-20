@@ -1,16 +1,17 @@
 import { StyleSheet } from "react-native";
 
 export const API_URL = "http://220da09e.ngrok.io";
-export const FB_APP_ID = "1718196768212364";
+export const FB_APP_ID = "332389001358220";
 
 export const COLORS = {
-  DALGRAK: "#366671",
+  DALGRAK: "#23344E",
 };
 
 export const FONTS = {
   SIZE: {
     TITLE: 25,
     CONTENTS: 18,
+    INFO: 15,
   },
 };
 

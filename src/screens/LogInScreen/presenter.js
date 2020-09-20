@@ -17,10 +17,9 @@ const { width, height } = Dimensions.get("window");
 
 const LogInScreen = (props) => (
   <View style={styles.container}>
-    <StatusBar barStyle={"light-content"} />
     <View style={styles.header}>
       <Image
-        source={require("../../../assets/images/logo_size.jpg")}
+        source={require("../../../assets/images/logo_login.png")}
         resizeMode="stretch"
         style={styles.logo}
       />
@@ -53,7 +52,7 @@ const LogInScreen = (props) => (
           )}
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.fbContainer}>
+      <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
         <View style={styles.fbView}>
           <MaterialCommunityIcons
             name="facebook-box"
@@ -100,11 +99,11 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 250,
-    height: 250,
-    marginTop: 10,
+    resizeMode: "contain",
+    marginTop: 50,
   },
   content: {
-    flex: 5,
+    flex: 4,
     backgroundColor: "white",
     paddingTop: 50,
     alignItems: "center",

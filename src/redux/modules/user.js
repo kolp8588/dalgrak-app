@@ -1,8 +1,9 @@
 // Imports
 
 import { API_URL, FB_APP_ID } from "../../constants";
-import { AsyncStorage } from "react-native";
-import { Permissions, Notifications, Facebook } from "expo";
+import { Alert, AsyncStorage } from "react-native";
+import { Permissions, Notifications } from "expo";
+import * as Facebook from "expo-facebook";
 import firebase from "firebase";
 
 // Actions
@@ -51,7 +52,6 @@ function login(username, password) {
           return firebase.auth().signInWithEmailAndPassword(username, password);
         });
       if (response && response.user) {
-        console.log(response.user);
         dispatch(setLogIn(response.user.uid));
         dispatch(setUser(response.user));
         return true;
@@ -66,33 +66,30 @@ function login(username, password) {
 }
 function facebookLogin() {
   return async (dispatch) => {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-      FB_APP_ID,
-      {
+    try {
+      await Facebook.initializeAsync(FB_APP_ID);
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ["public_profile", "email"],
+      });
+      if (type === "success") {
+        const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+        const response = await firebase
+          .auth()
+          .signInWithCredential(credential)
+          .catch((error) => {
+            console.log(error.message);
+          });
+        if (response && response.user) {
+          dispatch(setLogIn(response.user.uid));
+          dispatch(setUser(response.user));
+          return true;
+        } else {
+          return false;
+        }
       }
-    );
-    if (type === "success") {
-      return fetch(`${API_URL}/users/login/facebook/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          access_token: token,
-        }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          if (json.user && json.token) {
-            dispatch(setLogIn(json.token));
-            dispatch(setUser(json.user));
-            return true;
-          } else {
-            console.log("I'm Here!!");
-            return false;
-          }
-        });
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
     }
   };
 }

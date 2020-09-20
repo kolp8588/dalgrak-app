@@ -25,7 +25,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         const iconName = {
           Home: "home",
-          Dalgrak: "alpha-d-box",
+          Dalgrak: "plus-box-outline",
           Profile: "account-circle",
         };
         const isFocused = state.index === index;
@@ -63,12 +63,12 @@ function MyTabBar({ state, descriptors, navigation }) {
           >
             <MaterialCommunityIcons
               name={iconName[label]}
-              size={25}
+              size={30}
               color={isFocused ? COLORS.DALGRAK : "gray"}
+              style={{
+                marginVertical: 10,
+              }}
             />
-            <Text style={{ color: isFocused ? COLORS.DALGRAK : "gray" }}>
-              {label}
-            </Text>
           </TouchableOpacity>
         );
       })}

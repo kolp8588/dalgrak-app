@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, Dimensions, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import FadeIn from "react-native-fade-in-image";
 import { COLORS, FONTS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
@@ -20,9 +14,7 @@ class Dalgrak extends Component {
     return (
       <View style={styles.dalgrak}>
         <TouchableOpacity
-          onPressOut={() =>
-            navigation.navigate("dalgrak", { id: this.props.idx })
-          }
+          onPress={() => navigation.navigate("dalgrak", { id: this.props.idx })}
         >
           <View
             style={{
@@ -32,17 +24,18 @@ class Dalgrak extends Component {
             <FadeIn>
               <Image
                 source={{ uri: this.props.imageUrl }}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 100, height: 100, borderRadius: 100 }}
               />
             </FadeIn>
             <View
               style={{
                 marginLeft: 20,
+                marginVertical: 2,
               }}
             >
               <Text
                 style={{
-                  fontSize: FONTS.SIZE.CONTENTS,
+                  fontSize: FONTS.SIZE.TITLE,
                   color: COLORS.DALGRAK,
                 }}
               >
@@ -50,6 +43,7 @@ class Dalgrak extends Component {
               </Text>
               <Text
                 style={{
+                  marginTop: 3,
                   fontSize: FONTS.SIZE.CONTENTS,
                 }}
               >
@@ -79,59 +73,8 @@ class Dalgrak extends Component {
 
 const styles = StyleSheet.create({
   dalgrak: {
-    width,
     marginVertical: 10,
-    marginHorizontal: 10,
-  },
-  header: {
-    paddingHorizontal: 15,
-    flexDirection: "row",
-    paddingVertical: 15,
-    alignItems: "center",
-    borderBottomColor: "#bbb",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    flex: 1,
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-  },
-  author: {
-    fontWeight: "600",
-    marginBottom: 3,
-    fontSize: 15,
-  },
-  location: {
-    fontSize: 13,
-  },
-  photoMeta: {
-    paddingHorizontal: 15,
-  },
-  comment: {
-    marginTop: 5,
-  },
-  commentAuthor: {
-    marginRight: 5,
-    fontWeight: "600",
-    fontSize: 14,
-  },
-  message: {
-    fontWeight: "400",
-    fontSize: 15,
-  },
-  commentsLink: {
-    marginTop: 5,
-  },
-  linkText: {
-    fontSize: 15,
-    color: "#999",
-  },
-  dateText: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 10,
+    marginHorizontal: 30,
   },
 });
 

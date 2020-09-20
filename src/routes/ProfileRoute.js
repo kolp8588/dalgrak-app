@@ -2,8 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../screens/ProfileScreen";
 import { Component } from "react";
-import { View, Text } from "react-native";
-
+import { COLORS } from "../constants";
 const Stack = createStackNavigator();
 
 class ProfileRoute extends Component {
@@ -11,7 +10,16 @@ class ProfileRoute extends Component {
     const { navigation } = this.props;
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerTintColor: "white",
+          }}
+        />
       </Stack.Navigator>
     );
   }

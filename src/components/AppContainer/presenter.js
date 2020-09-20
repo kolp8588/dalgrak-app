@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { SafeAreaView, View, Text, StatusBar, StyleSheet } from "react-native";
+import { SafeAreaView, StatusBar, View, StyleSheet } from "react-native";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 import RootNavigation from "../../navigation/RootNavigation";
-
+import { COLORS } from "../../constants";
 class AppContainer extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
@@ -16,14 +16,16 @@ class AppContainer extends Component {
   render() {
     const { isLoggedIn, profile } = this.props;
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar hidden={false} />
-        {isLoggedIn && profile ? (
-          <RootNavigation screenProps={{ username: profile.username }} />
-        ) : (
-          <LoggedOutNavigation />
-        )}
-      </SafeAreaView>
+      <Fragment>
+        <View style={styles.container}>
+          {isLoggedIn && profile ? (
+            <RootNavigation screenProps={{ username: profile.username }} />
+          ) : (
+            <LoggedOutNavigation />
+          )}
+        </View>
+        <SafeAreaView />
+      </Fragment>
     );
   }
 }

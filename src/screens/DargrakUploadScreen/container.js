@@ -75,7 +75,6 @@ class Container extends Component {
       unit,
     };
     const uploadResult = await submit(parent);
-    console.log(uploadResult);
     if (uploadResult) {
       this.props.navigation.goBack();
     }

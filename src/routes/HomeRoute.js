@@ -1,21 +1,30 @@
 import React, { Component } from "react";
-import { TouchableWithoutFeedback } from "react-native";
+import { TouchableWithoutFeedback, Image, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import DalgrakScreen from "../screens/DalgrakScreen";
 import FeedScreen from "../screens/FeedScreen";
+import { COLORS } from "../constants";
 
 const Stack = createStackNavigator();
 class HomeRoute extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTintColor: "white",
+        }}
+      >
         <Stack.Screen
           name="feed"
           component={FeedScreen}
           options={{
-            title: "Feed",
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerLeft: () => <View />,
+            headerTitle: (props) => <LogoTitle {...props} />,
             headerRight: () => (
               <TouchableWithoutFeedback
                 style={{ marginRight: 20 }}
@@ -23,8 +32,8 @@ class HomeRoute extends Component {
               >
                 <MaterialCommunityIcons
                   name={"bell"}
-                  size={20}
-                  style={{ marginRight: 15 }}
+                  size={22}
+                  style={{ marginRight: 15, color: "white" }}
                 />
               </TouchableWithoutFeedback>
             ),
@@ -34,12 +43,31 @@ class HomeRoute extends Component {
           name="dalgrak"
           component={DalgrakScreen}
           options={{
+            headerBackTitleVisible: false,
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
             title: "Dalgrak",
           }}
         />
       </Stack.Navigator>
     );
   }
+}
+
+function LogoTitle() {
+  return (
+    <View
+      style={{
+        alignItems: "center",
+      }}
+    >
+      <Image
+        style={{ width: 70, resizeMode: "contain" }}
+        source={require("../../assets/images/logo.png")}
+      />
+    </View>
+  );
 }
 
 export default HomeRoute;

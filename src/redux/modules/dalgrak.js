@@ -49,11 +49,10 @@ function getFeed() {
           item.id = dalgrak.id;
           result.push(item);
         }
-        console.log("RES:", result);
-        dispatch(setFeed(result));
       } else {
         console.log("NO DATA");
       }
+      dispatch(setFeed(result));
     } catch (error) {
       console.error("ERROR : ", error.message);
     }
@@ -108,7 +107,6 @@ function submitDalgrak(dalgrak) {
     dalgrak.category = category.name;
     dalgrak.imageUrl = category.imageUrl;
     dalgrak.participants = 0;
-    console.log("Data : ", dalgrak);
     const response = await firebase
       .firestore()
       .collection("dalgraks")

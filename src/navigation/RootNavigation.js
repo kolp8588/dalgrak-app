@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigation from "./TabsNavigation";
 import CategoryScreen from "../screens/CategoryScreen";
-import DargrakBasicScreen from "../screens/DargrakBasicScreen";
+import DargrakUploadScreen from "../screens/DargrakUploadScreen";
 import EventsRoute from "../routes/EventsRoute";
 
 const Stack = createStackNavigator();
@@ -22,7 +22,7 @@ class RootNavigation extends Component {
           />
           <Stack.Screen
             name="UploadDalgrak"
-            component={DargrakBasicScreen}
+            component={DargrakUploadScreen}
             options={{
               title: "달그락 올리기",
               headerBackTitleVisible: false,

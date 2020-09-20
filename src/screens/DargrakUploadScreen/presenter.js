@@ -1,5 +1,7 @@
 import React from "react";
 import {
+  SafeAreaView,
+  StatusBar,
   View,
   Text,
   Dimensions,
@@ -8,6 +10,7 @@ import {
   Image,
   Button,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
 import { TextInput } from "react-native-gesture-handler";
@@ -19,6 +22,13 @@ const { height, width } = Dimensions.get("window");
 
 const DargrakBasicScreen = (props) => (
   <View style={COMMON_STYLES.CONTAINER}>
+    <StatusBar
+      translucent
+      animated={false}
+      hidden={false}
+      backgroundColor="white" //Android
+      barStyle="dark-content" // IOS
+    />
     {!props.category && (
       <View style={COMMON_STYLES.FLEX_START}>
         <Text
@@ -121,6 +131,25 @@ const DargrakBasicScreen = (props) => (
               }}
               onChangeItem={(item) => props.onUnitChange(item.value)}
             />
+          </View>
+          <View
+            style={{
+              marginTop: 4,
+              marginHorizontal: 20,
+              alignSelf: "stretch",
+              flex: 1,
+              flexDirection: "row",
+            }}
+          >
+            <AntDesign name="questioncircle" size={18} color={COLORS.DALGRAK} />
+            <Text
+              style={{
+                marginLeft: 5,
+                fontSize: FONTS.SIZE.INFO,
+              }}
+            >
+              Tip! 한 팩에는 보통 10개 정도의 사과가 들어있습니다.
+            </Text>
           </View>
 
           <Text
