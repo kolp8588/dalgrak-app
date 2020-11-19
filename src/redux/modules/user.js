@@ -2,7 +2,10 @@
 
 import { API_URL, FB_APP_ID } from "../../constants";
 import { Alert, AsyncStorage } from "react-native";
-import { Permissions, Notifications } from "expo";
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+
 import * as Facebook from "expo-facebook";
 import firebase from "firebase";
 
@@ -11,6 +14,7 @@ import firebase from "firebase";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const SET_USER = "SET_USER";
+const SET_PROFILE = "SET_PROFILE";
 const SET_NOTIFICATIONS = "SET_NOTIFICATIONS";
 
 // Action Creators
@@ -26,6 +30,13 @@ function setUser(user) {
   return {
     type: SET_USER,
     user,
+  };
+}
+
+function setProfile(profile) {
+  return {
+    type: SET_PROFILE,
+    profile,
   };
 }
 
@@ -52,9 +63,37 @@ function login(username, password) {
           return firebase.auth().signInWithEmailAndPassword(username, password);
         });
       if (response && response.user) {
-        dispatch(setLogIn(response.user.uid));
-        dispatch(setUser(response.user));
-        return true;
+        const request = {};
+        request.username = response.user.email;
+        request.userId = response.user.uid;
+        if (response.user.token == "") {
+          console.log("No token")
+        }
+        if (Constants.isDevice) {
+          const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          const token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+          request.token = token;
+          
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+        
+        if (addProfile(request)) {
+          dispatch(setLogIn(response.user.uid));
+          dispatch(setUser(response.user));
+          dispatch(setProfile(request));
+          return true;
+        }
       } else {
         return false;
       }
@@ -81,9 +120,37 @@ function facebookLogin() {
             console.log(error.message);
           });
         if (response && response.user) {
-          dispatch(setLogIn(response.user.uid));
-          dispatch(setUser(response.user));
-          return true;
+          const request = {};
+          request.userId = response.user.uid
+          request.username = response.user.displayName
+
+          if (Constants.isDevice) {
+            const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+            let finalStatus = existingStatus;
+            if (existingStatus !== 'granted') {
+              const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+              finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+              alert('Failed to get push token for push notification!');
+              return;
+            }
+            const token = (await Notifications.getExpoPushTokenAsync()).data;
+            console.log(token);
+            request.token = token;
+            
+          } else {
+            alert('Must use physical device for Push Notifications');
+          }
+          console.log(response.user)
+          console.log(request)
+          
+          if (addProfile(request)) {
+            dispatch(setLogIn(response.user.uid));
+            dispatch(setUser(response.user));
+            dispatch(setProfile(request));
+            return true;
+          }
         } else {
           return false;
         }
@@ -92,6 +159,24 @@ function facebookLogin() {
       alert(`Facebook Login Error: ${message}`);
     }
   };
+}
+
+async function addProfile(request) {
+  try {
+    const response = await firebase
+      .firestore()
+      .collection("users")
+      .doc(request.userId)
+      .set(request);
+    if (response) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("ERROR : ", error.message);
+  }
+  return false;
 }
 
 function getNotifications() {
@@ -191,6 +276,8 @@ function reducer(state = initialState, action) {
       return applyLogOut(state, action);
     case SET_USER:
       return applySetUser(state, action);
+    case SET_PROFILE:
+      return applySetProfile(state, action);
     case SET_NOTIFICATIONS:
       return applySetNotifications(state, action);
     default:
@@ -223,6 +310,13 @@ function applySetUser(state, action) {
   return {
     ...state,
     profile: user,
+  };
+}
+function applySetProfile(state, action) {
+  const { profile } = action;
+  return {
+    ...state,
+    profile: profile,
   };
 }
 

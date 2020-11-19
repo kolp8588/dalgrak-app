@@ -54,7 +54,7 @@ function getFeed() {
       }
       dispatch(setFeed(result));
     } catch (error) {
-      console.error("ERROR : ", error.message);
+      console.error("ERROR!!");
     }
   };
 }
