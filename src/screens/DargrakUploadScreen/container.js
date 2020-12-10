@@ -110,9 +110,12 @@ class Container extends Component {
   _submit = async () => {
     const { category, date, quantity, unit ,detailAddress, address, info } = this.state;
     const { submit } = this.props;
+
+    let current = new Date();
+
     const param = {
       category,
-      date,
+      date: current.getTime() + date * 1000 * 60 * 60,
       quantity,
       unit,
       detailAddress,
@@ -120,6 +123,7 @@ class Container extends Component {
       info,
 
     };
+
     const uploadResult = await submit(param);
     if (uploadResult) {
       this.props.navigation.goBack();
