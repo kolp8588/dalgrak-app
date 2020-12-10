@@ -4,8 +4,10 @@ import {
   StatusBar,
   View,
   Text,
+  Modal,
   Dimensions,
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
   Image,
   Button,
@@ -17,11 +19,40 @@ import { TextInput } from "react-native-gesture-handler";
 import CalendarPicker from "react-native-calendar-picker";
 import DropDownPicker from "react-native-dropdown-picker";
 import FadeIn from "react-native-fade-in-image";
+import Postcode from 'react-native-daum-postcode';
+import { WebView } from 'react-native-webview';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { color } from "react-native-reanimated";
+
+
+
 
 const { height, width } = Dimensions.get("window");
 
 const DargrakBasicScreen = (props) => (
   <View style={COMMON_STYLES.CONTAINER}>
+     <Modal
+        animationType="fade"
+        transparent={true}
+        visible={props.isModalVisible}
+      >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Postcode
+            jsOptions={{ animated: true }}
+            onSelected={(data) => props.selectAddress(data)}
+          />
+          <TouchableOpacity style={{margin: 10 }} 
+            onPress={() => {
+                props.onChangeModalVisibility(false);
+            }}>
+            <View style={styles.button}>
+              <Text style={styles.btnText}>취소</Text>
+            </View>
+            </TouchableOpacity>     
+        </View>
+      </View>
+    </Modal>
     <StatusBar
       translucent
       animated={false}
@@ -117,13 +148,13 @@ const DargrakBasicScreen = (props) => (
               }}
               keyboardType="numeric"
               onChangeText={(text) => props.onQuantityChange(text)}
-              placeholder="입력"
+              placeholder="수량"
             />
             <DropDownPicker
               style={{ width: 100 }}
               items={[
                 { label: "kg", value: "kg" },
-                { label: "팩", value: "ea" },
+                { label: "g", value: "g" },
               ]}
               defaultValue={props.unit}
               itemStyle={{
@@ -164,34 +195,145 @@ const DargrakBasicScreen = (props) => (
             마감일
           </Text>
 
-          <View style={{ marginBottom: 50 }}>
-            <CalendarPicker
-              // maxDate={maxDate}
-              weekdays={["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]}
-              months={[
-                "January",
-                "Febraury",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ]}
-              previousTitle="<"
-              nextTitle=">"
-              selectedDayColor={COLORS.DALGRAK}
-              selectedDayTextColor="white"
-              scaleFactor={375}
-              onDateChange={props.onDateChange}
-              onDateChange={(date) => props.onDateChange(date.toString())}
-            />
+          <View style={{  flexDirection: "row" }}>
+            <TouchableOpacity
+            onPressOut={() => props.onTimeSelect("12")} >
+              <View style={[
+                styles.button, 
+                {
+                backgroundColor:
+                  props.date == 12
+                    ? COLORS.DALGRAK  
+                    : "white"
+                 }]
+            }>
+                <Text style = {[styles.text, { color: props.date == 12 ? "white" : "black" }]}>
+                  12H
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPressOut={() => props.onTimeSelect("24")} >
+              <View style={[
+                styles.button, 
+                {
+                backgroundColor:
+                  props.date == 24
+                    ? COLORS.DALGRAK  
+                    : "white"
+                 }]
+            }>
+                <Text style = {[styles.text, { color: props.date == 24 ? "white" : "black" }]}>
+                  24H
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPressOut={() => props.onTimeSelect("36")} >
+              <View style={[
+                styles.button, 
+                {
+                backgroundColor:
+                  props.date == 36
+                    ? COLORS.DALGRAK  
+                    : "white"
+                 }]
+            }>
+                <Text style = {[styles.text, { color: props.date == 36 ? "white" : "black" }]}>
+                  36H
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPressOut={() => props.onTimeSelect("48")} >
+              <View style={[
+                styles.button, 
+                {
+                backgroundColor:
+                  props.date == 48
+                    ? COLORS.DALGRAK  
+                    : "white"
+                 }]
+            }>
+                <Text style = {[styles.text, { color: props.date == 48 ? "white" : "black" }]}>
+                  48H
+                </Text>
+              </View>
+            </TouchableOpacity>
+            
+
+            
           </View>
-        </ScrollView>
+
+          <Text
+            style={{
+              alignSelf: "flex-start",
+              marginTop: 50,
+              marginLeft: 20,
+              fontSize: FONTS.SIZE.TITLE,
+            }}
+          >
+            배송 정보
+          </Text>
+
+          <View style={[styles.inputBox, {
+        borderColor: props.addressErrorMsg != "" ? COLORS.WARNING : COLORS.MINOR,
+        }]}>
+        <View style={{flexDirection: "row"}}>
+          <TextInput
+              placeholder="주소"
+              style={[styles.textInput, {width : width - 80, paddingLeft: 15}]}
+              value={props.address}
+              editable={false}
+            />
+          <TouchableOpacity style={{width: 40, justifyContent: "center", alignItems: "center"}} 
+            onPress={() => {
+                props.onChangeModalVisibility(true);
+            }}>
+              <MaterialCommunityIcons
+                  name={"map-search-outline"}
+                  size={30}
+                  style={{ color: COLORS.DALGRAK }}
+                />
+          </TouchableOpacity>
+        </View>
+        {props.addressErrorMsg != "" && 
+          (<Text style={styles.errorText}>{props.addressErrorMsg}</Text>)}
+      </View>
+      <View style={[styles.inputBox, {
+              borderColor: props.detailAddressErrorMsg != "" ? COLORS.WARNING : COLORS.MINOR
+          }]}>
+          <TextInput
+              placeholder="상세주소"
+              style={styles.textInput}
+              value={props.detailAddress}
+              onChangeText={props.changeDetailAddress}
+            />
+          {props.detailAddressErrorMsg != "" && 
+            (<Text style={styles.errorText}>{props.detailAddressErrorMsg}</Text>)}
+        </View>
+
+          <Text
+            style={{
+              alignSelf: "flex-start",
+              marginTop: 50,
+              marginLeft: 20,
+              fontSize: FONTS.SIZE.TITLE,
+            }}
+          >
+            상세 요청 내용
+        </Text>
+        <TextInput
+          style={styles.info}
+          value={props.info}
+          multiline={true}
+          maxLength={200}
+          onChangeText={(text) => props.onInfoChange(text)}
+        />
+
+            <View
+                  style={ {marginBottom: 50}}
+                ></View>
         <View
           style={{
             alignSelf: "stretch",
@@ -226,6 +368,9 @@ const DargrakBasicScreen = (props) => (
             </Text>
           </TouchableOpacity>
         </View>
+
+        
+        </ScrollView>
       </View>
     )}
   </View>
@@ -236,5 +381,68 @@ DargrakBasicScreen.propTypes = {
   quantity: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
 };
+
+const styles = StyleSheet.create({
+
+  button: {
+    borderRadius: 3,
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "white",
+    marginHorizontal: 10,
+    borderColor: "black",
+    borderWidth: StyleSheet.hairlineWidth
+  },
+
+  btnText: {
+    color: "black",
+    fontWeight: "600",
+    textAlign: "center",
+    fontSize: 14,
+  },
+
+  centeredView: {
+    flex: 1,
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    width: width * 0.9,
+    height: height * 0.6,
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  info: {
+    marginHorizontal: 10,
+    padding: 5,
+    width: width-10,
+    backgroundColor: COLORS.INPUT,
+    fontSize: FONTS.SIZE.CONTENTS,
+  },
+
+  textInput: {
+    height: 50,
+    width: width - 40,
+    paddingHorizontal: 15,
+    fontSize: FONTS.SIZE.CONTENTS,
+  },
+
+  inputBox: {
+    marginBottom: 15,
+    borderWidth: StyleSheet.hairlineWidth,
+  }
+});
 
 export default DargrakBasicScreen;

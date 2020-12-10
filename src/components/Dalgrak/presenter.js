@@ -54,7 +54,7 @@ class Dalgrak extends Component {
                   fontSize: FONTS.SIZE.CONTENTS,
                 }}
               >
-                마감일 : {this.props.parseDate(this.props.date)}
+                남은 시간 : {this.props.date} 시간
               </Text>
               <Text
                 style={{

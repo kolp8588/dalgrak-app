@@ -11,6 +11,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import ProfileNumber from "../ProfileNumber";
+//import Like from "../Like";
+import { COLORS, FONTS } from "../../constants"
+
 const width = Dimensions.get("window").width;
 class Profile extends Component {
   render() {
@@ -25,6 +29,23 @@ class Profile extends Component {
             />
           </TouchableOpacity>
         </View>
+        <View style={styles.headerColumn}>
+            <View style={styles.profileNumbers}>
+              <ProfileNumber
+                number={"12"}
+                text={"달그락"}
+              />
+              <ProfileNumber
+                number={"25%"}
+                text={"입찰율"}
+              />
+              <ProfileNumber
+                number={"33%"}
+                text={"낙찰율"}
+              />
+            </View>
+              
+          </View>
         <View style={{ flex: 5, backgroundColor: "lightgray" }}></View>
       </View>
     );

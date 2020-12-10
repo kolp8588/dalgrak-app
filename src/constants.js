@@ -5,13 +5,19 @@ export const FB_APP_ID = "332389001358220";
 
 export const COLORS = {
   DALGRAK: "#23344E",
+  MINOR: "#bbb",
+  WARNING: "#EB5757",
+  INPUT: "#F2F2F2",
+  LIGHT_BLACK: "#4F4F4F",
+  DISABLED: "#E0E0E0",
 };
 
 export const FONTS = {
   SIZE: {
-    TITLE: 25,
-    CONTENTS: 18,
-    INFO: 15,
+    TITLE: 22,
+    H1: 20,
+    CONTENTS: 16,
+    INFO: 14,
   },
 };
 

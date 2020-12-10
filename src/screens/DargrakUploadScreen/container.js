@@ -9,6 +9,13 @@ class Container extends Component {
     unit: "kg",
     quantity: "",
     date: "",
+    isModalVisible: false,
+    detailAddress: "",
+    detailAddressErrorMsg: "",
+    address: "",
+    info: "",
+    time: "",
+    addressErrorMsg: "",
   };
   componentWillUnmount() {
     this.props.refreshStates();
@@ -22,8 +29,13 @@ class Container extends Component {
         pickCategory={this._pickCategory}
         onUnitChange={this._onUnitChange}
         onQuantityChange={this._onQuantityChange}
+        onChangeModalVisibility={this._onChangeModalVisibility}
         onDateChange={this._onDateChange}
         submit={this._submit}
+        selectAddress={this._selectAddress}
+        changeDetailAddress={this._changeDetailAddress}
+        onInfoChange={this._onInfoChange}
+        onTimeSelect={this._onTimeSelect}
       />
     );
   }
@@ -65,16 +77,50 @@ class Container extends Component {
     }
   };
 
+  _selectAddress = (result) => {
+    this.setState({
+      address: result.address,
+      isModalVisible: false,
+    });
+  };
+  _changeDetailAddress = (text) => {
+    this.setState({ detailAddress: text });
+  };
+  _onChangeModalVisibility = (bool) => {
+    this.setState({
+      isModalVisible: bool,
+    });
+  };
+
+  _onInfoChange = (text) => {
+    this.setState({
+      info: text,
+    });
+  };
+
+  _onTimeSelect = (text) => {
+    
+    this.setState({
+      date: text,
+    });
+  };
+
+ 
+
   _submit = async () => {
-    const { category, date, quantity, unit } = this.state;
+    const { category, date, quantity, unit ,detailAddress, address, info } = this.state;
     const { submit } = this.props;
-    const parent = {
+    const param = {
       category,
       date,
       quantity,
       unit,
+      detailAddress,
+      address,
+      info,
+
     };
-    const uploadResult = await submit(parent);
+    const uploadResult = await submit(param);
     if (uploadResult) {
       this.props.navigation.goBack();
     }
