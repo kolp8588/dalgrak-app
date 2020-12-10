@@ -5,12 +5,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import FadeIn from "react-native-fade-in-image";
 import { COLORS, FONTS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import CountDown from "react-native-countdown-component";
 
 const { width, height } = Dimensions.get("window");
 
 class Dalgrak extends Component {
   render() {
     const { navigation } = this.props;
+    var date = new Date().getTime();
+    var endDate = this.props.date;
+    var sec = (endDate - date) / 1000;
+
     return (
       <View style={styles.dalgrak}>
         <TouchableOpacity
@@ -33,14 +38,30 @@ class Dalgrak extends Component {
                 marginVertical: 2,
               }}
             >
-              <Text
-                style={{
-                  fontSize: FONTS.SIZE.TITLE,
-                  color: COLORS.DALGRAK,
-                }}
-              >
-                {this.props.category}
-              </Text>
+              <View style={{flexDirection:"row"}}>
+                <Text
+                  style={{
+                    fontSize: FONTS.SIZE.TITLE,
+                    color: COLORS.DALGRAK,
+                  }}
+                >
+                  {this.props.category}
+                </Text>
+                <CountDown
+                    style={{marginLeft: 5}}
+                    until={sec}
+                    size={12}
+                    digitTxtStyle={{ color: COLORS.DALGRAK }}
+                    digitStyle={{ 
+                      borderWidth: 2,
+                      borderColor: COLORS.DALGRAK,
+                      backgroundColor: "white" 
+                    }}
+                    timeToShow={['H', 'M', 'S']}
+                    showSeparator={true}
+                    timeLabels={{h: null, m: null, s: null}}
+                  />
+              </View>
               <Text
                 style={{
                   marginTop: 3,
@@ -48,13 +69,6 @@ class Dalgrak extends Component {
                 }}
               >
                 {this.props.quantity} {this.props.unit}
-              </Text>
-              <Text
-                style={{
-                  fontSize: FONTS.SIZE.CONTENTS,
-                }}
-              >
-                남은 시간 : {this.props.date} 시간
               </Text>
               <Text
                 style={{
