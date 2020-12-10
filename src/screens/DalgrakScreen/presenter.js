@@ -61,6 +61,7 @@ const DargrakScreen = (props) => {
               digitTxtStyle={{ color: "white" }}
               timeToShow={['H', 'M', 'S']}
               showSeparator={true}
+              
               timeLabels={{h: null, m: null, s: null}}
             />
           </View>
