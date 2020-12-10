@@ -18,7 +18,7 @@ const { height, width } = Dimensions.get("window");
 const DargrakScreen = (props) => {
   var dalgrak = props.feed[props.route.params.id];
   var date = new Date().getTime();
-  var endDate = new Date(dalgrak.date).getTime();
+  var endDate = dalgrak.date;
   var sec = (endDate - date) / 1000;
 
   return (
@@ -59,6 +59,9 @@ const DargrakScreen = (props) => {
               size={15}
               digitStyle={{ backgroundColor: COLORS.DALGRAK }}
               digitTxtStyle={{ color: "white" }}
+              timeToShow={['H', 'M', 'S']}
+              showSeparator={true}
+              timeLabels={{h: null, m: null, s: null}}
             />
           </View>
           <View
