@@ -75,7 +75,7 @@ class Dalgrak extends Component {
                   fontSize: FONTS.SIZE.CONTENTS,
                 }}
               >
-                참여업체 : {this.props.participants}
+                참여업체 : {this.props.biddings ? this.props.biddings.length : 0}
               </Text>
             </View>
           </View>
