@@ -47,6 +47,21 @@ function getFeed() {
         for (let dalgrak of collection.docs) {
           const item = dalgrak.data();
           item.id = dalgrak.id;
+          const biddingCollection = await firebase
+            .firestore()
+            .collection("biddings")
+            .where("dalgrakId", "==", dalgrak.id)
+            .get();
+
+          if (!biddingCollection.empty) {
+            const biddings = [];
+            for (let bidding of biddingCollection.docs) {
+              const biddingData = bidding.data();
+              biddingData.id = bidding.id;
+              biddings.push(biddingData);
+            }
+            item.biddings = biddings;
+          }
           result.push(item);
         }
       } else {
@@ -54,7 +69,7 @@ function getFeed() {
       }
       dispatch(setFeed(result));
     } catch (error) {
-      console.error("ERROR!!");
+      console.error(error);
     }
   };
 }
