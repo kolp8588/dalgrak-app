@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import FadeIn from "react-native-fade-in-image";
 import CountDown from "react-native-countdown-component";
-
+import Bidding from "../../components/Bidding"
 import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
 
 const { height, width } = Dimensions.get("window");
@@ -109,8 +109,13 @@ const DargrakScreen = (props) => {
                 fontSize: FONTS.SIZE.TITLE,
               }}
             >
-              참여 업체
+              참여업체 : 총 {dalgrak.biddings ? dalgrak.biddings.length : 0} 개
             </Text>
+            {dalgrak.biddings &&
+                dalgrak.biddings.map((bidding, index) => {
+                  bidding.idx = index;
+                  return <Bidding bidding={bidding} key={bidding.id} />;
+                })}
           </View>
         </ScrollView>
       </View>
