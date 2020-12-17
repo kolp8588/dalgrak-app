@@ -1,18 +1,9 @@
-import React, { Component } from "react";
-import Bidding from "./presenter";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as dalgrakActions } from "../../redux/modules/dalgrak";
 
-class Container extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  static propTypes = {};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {};
+};
 
-  render() {
-    return (
-      <Bidding {...this.props} {...this.state} />
-    );
-  }
-}
-
-export default Container;
+export default connect(null, mapDispatchToProps)(Container);
