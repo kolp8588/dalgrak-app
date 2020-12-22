@@ -3,6 +3,7 @@ import { TouchableWithoutFeedback, Image, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import DalgrakScreen from "../screens/DalgrakScreen";
+import DalgrakSellerScreen from "../screens/DalgrakSellerScreen";
 import FeedScreen from "../screens/FeedScreen";
 import { COLORS } from "../constants";
 
@@ -48,6 +49,17 @@ class HomeRoute extends Component {
               backgroundColor: COLORS.DALGRAK,
             },
             title: "Dalgrak",
+          }}
+        />
+        <Stack.Screen
+          name="dalgrakSeller"
+          component={DalgrakSellerScreen}
+          options={{
+            headerBackTitleVisible: false,
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            title: "DalgrakSeller",
           }}
         />
       </Stack.Navigator>

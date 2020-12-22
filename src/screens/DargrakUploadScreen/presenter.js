@@ -29,7 +29,10 @@ import { color } from "react-native-reanimated";
 
 const { height, width } = Dimensions.get("window");
 
+
+
 const DargrakBasicScreen = (props) => (
+
   <View style={COMMON_STYLES.CONTAINER}>
      <Modal
         animationType="fade"
@@ -323,6 +326,7 @@ const DargrakBasicScreen = (props) => (
           >
             상세 요청 내용
         </Text>
+       
         <TextInput
           style={styles.info}
           value={props.info}

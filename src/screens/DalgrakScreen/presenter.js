@@ -15,11 +15,14 @@ import { COLORS, COMMON_STYLES, FONTS } from "../../constants";
 
 const { height, width } = Dimensions.get("window");
 
+
 const DargrakScreen = (props) => {
   var dalgrak = props.feed[props.route.params.id];
   var date = new Date().getTime();
   var endDate = dalgrak.date;
   var sec = (endDate - date) / 1000;
+
+const { navigation } = props;
 
   return (
     <View
@@ -98,6 +101,9 @@ const DargrakScreen = (props) => {
               </Text>
             </View>
           </View>
+          <TouchableOpacity
+          onPress={() => navigation.navigate("dalgrakSeller")}
+        >
           <View
             style={{
               marginVertical: 20,
@@ -117,6 +123,7 @@ const DargrakScreen = (props) => {
                   return <Bidding bidding={bidding} key={bidding.id} />;
                 })}
           </View>
+        </TouchableOpacity>
         </ScrollView>
       </View>
       <View

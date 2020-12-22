@@ -36,6 +36,7 @@ class Container extends Component {
         changeDetailAddress={this._changeDetailAddress}
         onInfoChange={this._onInfoChange}
         onTimeSelect={this._onTimeSelect}
+        componentDidMount = {this._componentDidMount}
       />
     );
   }
@@ -129,6 +130,7 @@ class Container extends Component {
       this.props.navigation.goBack();
     }
   };
+
 }
 
 export default Container;
