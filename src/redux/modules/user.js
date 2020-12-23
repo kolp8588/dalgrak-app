@@ -8,6 +8,8 @@ import Constants from 'expo-constants';
 
 import * as Facebook from "expo-facebook";
 import firebase from "firebase";
+import { dalgrakApp, secondaryApp } from "../../firebase";
+
 
 // Actions
 
@@ -56,11 +58,11 @@ function setNotifications(notifications) {
 function login(username, password) {
   return async (dispatch) => {
     try {
-      const response = await firebase
+      const response = await dalgrakApp
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(function () {
-          return firebase.auth().signInWithEmailAndPassword(username, password);
+          return dalgrakApp.auth().signInWithEmailAndPassword(username, password);
         });
       if (response && response.user) {
         const request = {};
@@ -113,7 +115,7 @@ function facebookLogin() {
       if (type === "success") {
         const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-        const response = await firebase
+        const response = await dalgrakApp
           .auth()
           .signInWithCredential(credential)
           .catch((error) => {
@@ -163,7 +165,7 @@ function facebookLogin() {
 
 async function addProfile(request) {
   try {
-    const response = await firebase
+    const response = await dalgrakApp
       .firestore()
       .collection("users")
       .doc(request.userId)

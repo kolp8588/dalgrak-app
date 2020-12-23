@@ -101,9 +101,7 @@ const { navigation } = props;
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-          onPress={() => navigation.navigate("dalgrakSeller")}
-        >
+         
           <View
             style={{
               marginVertical: 20,
@@ -120,10 +118,13 @@ const { navigation } = props;
             {dalgrak.biddings &&
                 dalgrak.biddings.map((bidding, index) => {
                   bidding.idx = index;
-                  return <Bidding bidding={bidding} key={bidding.id} />;
+                  bidding.quantity = dalgrak.quantity;
+                  bidding.unit = dalgrak.unit;
+                  bidding.category = dalgrak.category;
+                  bidding.dalgrakId = dalgrak.id;
+                  return <Bidding bidding={bidding}  key={bidding.id} />;
                 })}
           </View>
-        </TouchableOpacity>
         </ScrollView>
       </View>
       <View

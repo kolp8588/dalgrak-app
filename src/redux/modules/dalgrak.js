@@ -1,7 +1,10 @@
 // Imports
-import * as firebase from "firebase";
 import "firebase/firestore";
+
 import { actionCreators as userActions } from "./user";
+
+import { dalgrakApp, secondaryApp } from "../../firebase";
+
 
 // Actions
 
@@ -38,7 +41,7 @@ function getFeed() {
     } = getState();
     try {
       const result = [];
-      const collection = await firebase
+      const collection = await dalgrakApp
         .firestore()
         .collection("dalgraks")
         .where("userId", "==", token)
@@ -47,7 +50,7 @@ function getFeed() {
         for (let dalgrak of collection.docs) {
           const item = dalgrak.data();
           item.id = dalgrak.id;
-          const biddingCollection = await firebase
+          const biddingCollection = await dalgrakApp
             .firestore()
             .collection("biddings")
             .where("dalgrakId", "==", dalgrak.id)
@@ -58,6 +61,15 @@ function getFeed() {
             for (let bidding of biddingCollection.docs) {
               const biddingData = bidding.data();
               biddingData.id = bidding.id;
+              
+              const userDocs = await secondaryApp
+              .firestore()
+              .collection("users")
+              .doc(biddingData.userId)
+              .get();
+
+              biddingData.seller = userDocs.data();
+
               biddings.push(biddingData);
             }
             item.biddings = biddings;
@@ -81,7 +93,7 @@ function getCategories(parent) {
     }
     const result = [];
     try {
-      const collection = await firebase
+      const collection = await dalgrakApp
         .firestore()
         .collection("categories")
         .where("parent", "==", parent.name)
@@ -91,7 +103,7 @@ function getCategories(parent) {
         for (let category of collection.docs) {
           const item = category.data();
           try {
-            item.imageUrl = await firebase
+            item.imageUrl = await dalgrakApp
               .storage()
               .ref(item.imageRef)
               .getDownloadURL();
@@ -121,8 +133,9 @@ function submitDalgrak(dalgrak) {
     dalgrak.userId = token;
     dalgrak.category = category.name;
     dalgrak.imageUrl = category.imageUrl;
+    dalgrak.status = "IN_PROGRESS";
     dalgrak.participants = 0;
-    const response = await firebase
+    const response = await dalgrakApp
       .firestore()
       .collection("dalgraks")
       .add(dalgrak);
@@ -131,6 +144,75 @@ function submitDalgrak(dalgrak) {
       return true;
     } else {
       return false;
+    }
+  };
+}
+
+function successfulBid(dalgrakId,id) {
+  return async (dispatch, getState) => {
+    
+    const request = {status: "WAITING_FOR_PAYMENT"};
+
+    await dalgrakApp
+    .firestore()
+    .collection("dalgraks")
+    .doc(dalgrakId)
+    .update(request);
+    
+
+    await dalgrakApp
+    .firestore()
+    .collection("biddings")
+    .doc(id)
+    .update(request);
+    
+
+    dispatch(getFeed());
+    return true;
+   
+  };
+}
+
+// API Actions
+function getSeller() {
+  return async (dispatch, getState) => {
+    const {
+      user: { token },
+    } = getState();
+    try {
+      const result = [];
+      const collection = await secondaryApp
+        .firestore()
+        .collection("dalgraks")
+        .where("userId", "==", token)
+        .get();
+      if (!collection.empty) {
+        for (let dalgrak of collection.docs) {
+          const item = dalgrak.data();
+          item.id = dalgrak.id;
+          const biddingCollection = await dalgrakApp
+            .firestore()
+            .collection("biddings")
+            .where("dalgrakId", "==", dalgrak.id)
+            .get();
+
+          if (!biddingCollection.empty) {
+            const biddings = [];
+            for (let bidding of biddingCollection.docs) {
+              const biddingData = bidding.data();
+              biddingData.id = bidding.id;
+              biddings.push(biddingData);
+            }
+            item.biddings = biddings;
+          }
+          result.push(item);
+        }
+      } else {
+        console.log("NO DATA");
+      }
+      dispatch(setFeed(result));
+    } catch (error) {
+      console.error(error);
     }
   };
 }
@@ -183,6 +265,7 @@ const actionCreators = {
   getCategories,
   refreshStates,
   submitDalgrak,
+  successfulBid,
 };
 
 export { actionCreators };

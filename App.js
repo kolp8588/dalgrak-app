@@ -8,14 +8,14 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./src/redux/configureStore";
 import AppContainer from "./src/components/AppContainer";
-import firebase from "firebase";
-
-import { FIREBASE_CONFIG } from "./src/firebaseConfig";
+//import { dalgrakApp, secondaryApp } from "./src/firebaseConfig";
+//import firebase from "firebase";
 
 const { persistor, store } = configureStore();
-!firebase.apps.length
-  ? firebase.initializeApp(FIREBASE_CONFIG)
-  : firebase.app();
+
+//!firebase.apps.length
+//  ? firebase.initializeApp(FIREBASE_CONFIG)
+//  : firebase.app();
 
 YellowBox.ignoreWarnings([
   "Setting a timer",

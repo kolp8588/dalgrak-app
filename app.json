@@ -32,6 +32,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "카운트 다운 추가"
+    "description": "낙찰하기 추가"
   }
 }

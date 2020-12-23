@@ -15,7 +15,7 @@ class Bidding extends Component {
     return (
       <View style={styles.bidding}>
         <TouchableOpacity
-          // onPress={() => navigation.navigate("dalgrak", { id: this.props.idx })}
+           onPress={() => navigation.navigate("dalgrakSeller", { bidding: bidding })}
         >
           <View
             style={{
@@ -41,7 +41,7 @@ class Bidding extends Component {
                   fontSize: FONTS.SIZE.CONTENTS,
                 }}
               >
-                업체명 : {bidding.userId}
+                업체명 : {bidding.seller.userInfo.username}
               </Text>
               <Text
                 style={{

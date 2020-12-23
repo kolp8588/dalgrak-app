@@ -3,7 +3,7 @@ import DargrakScreen from "./presenter";
 
 class Container extends Component {
   render() {
-    return <DargrakScreen {...this.state} {...this.props} />;
+    return <DargrakScreen {...this.state} {...this.props}  />;
   }
 }
 
