@@ -21,6 +21,7 @@ const { height, width } = Dimensions.get("window");
 
 const DargrakSellerScreen = (props) => {
   var bidding = props.route.params.bidding;
+  var dalgrak = props.route.params.dalgrak;
   //var date = new Date().getTime();
   //var endDate = dalgrak.date;
   //var sec = (endDate - date) / 1000;
@@ -58,7 +59,7 @@ const DargrakSellerScreen = (props) => {
                     editable={false}
                     value={bidding.price}
                   />
-                  <Text style={styles.modalBiddingTitleText}> / {bidding.unit} </Text>
+                  <Text style={styles.modalBiddingTitleText}> / {dalgrak.unit} </Text>
               </View>
               <View style={styles.modalRow}>
                 <Text style={styles.modalBiddingTitleText}>총 입찰금액: </Text>
@@ -170,7 +171,7 @@ const DargrakSellerScreen = (props) => {
               fontSize: FONTS.SIZE.TITLE,
             }}
           >
-          {bidding.category} 입찰
+          {dalgrak.category} 입찰
      </Text>   
    
      <View style={{
@@ -239,7 +240,7 @@ const DargrakSellerScreen = (props) => {
               fontSize: 15,
             }}
           >
-          {bidding.price} / {bidding.unit}
+          {bidding.price} / {dalgrak.unit}
      </Text>  
      <Text
         style={{
@@ -258,7 +259,7 @@ const DargrakSellerScreen = (props) => {
               fontSize: 15,
             }}
           >
-          {bidding.total} / {bidding.quantity} {bidding.unit}
+          {bidding.total} / {dalgrak.quantity} {dalgrak.unit}
      </Text>  
      <Text
             style={{

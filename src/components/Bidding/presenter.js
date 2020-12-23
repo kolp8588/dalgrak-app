@@ -11,11 +11,11 @@ const { width, height } = Dimensions.get("window");
 
 class Bidding extends Component {
   render() {
-    const { navigation, bidding } = this.props;
+    const { navigation, bidding, dalgrak } = this.props;
     return (
       <View style={styles.bidding}>
         <TouchableOpacity
-           onPress={() => navigation.navigate("dalgrakSeller", { bidding: bidding })}
+           onPress={() => navigation.navigate("dalgrakSeller", { bidding: bidding, dalgrak: dalgrak })}
         >
           <View
             style={{

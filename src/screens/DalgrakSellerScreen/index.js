@@ -16,8 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
 
-    submit: (dalgrakId, id) => {
-      return dispatch(dalgrakActions.successfulBid(dalgrakId, id));
+    submit: (dalgrak, biddingId) => {
+      return dispatch(dalgrakActions.successfulBid(dalgrak, biddingId));
     },
   };
 };

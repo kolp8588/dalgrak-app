@@ -118,11 +118,7 @@ const { navigation } = props;
             {dalgrak.biddings &&
                 dalgrak.biddings.map((bidding, index) => {
                   bidding.idx = index;
-                  bidding.quantity = dalgrak.quantity;
-                  bidding.unit = dalgrak.unit;
-                  bidding.category = dalgrak.category;
-                  bidding.dalgrakId = dalgrak.id;
-                  return <Bidding bidding={bidding}  key={bidding.id} />;
+                  return <Bidding bidding={bidding} dalgrak={dalgrak} key={bidding.id} />;
                 })}
           </View>
         </ScrollView>

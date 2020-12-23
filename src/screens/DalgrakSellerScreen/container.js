@@ -27,10 +27,11 @@ class Container extends Component {
   _submit = async () => {
 
     var bidding = this.props.route.params.bidding;
+    var dalgrak = this.props.route.params.dalgrak;
 
     const {submit} = this.props
 
-    const uploadResult = await submit(bidding.dalgrakId, bidding.id);
+    const uploadResult = await submit(dalgrak, bidding.id);
     if (uploadResult) {
       this.setState({
         isModalVisible: false,

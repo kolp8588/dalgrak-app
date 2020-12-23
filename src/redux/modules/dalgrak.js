@@ -148,27 +148,42 @@ function submitDalgrak(dalgrak) {
   };
 }
 
-function successfulBid(dalgrakId,id) {
+function successfulBid(dalgrak, biddingId) {
   return async (dispatch, getState) => {
-    
+    const {
+      dalgraks: { feed },
+    } = getState();
+
+    var batch = dalgrakApp.firestore().batch();
+
     const request = {status: "WAITING_FOR_PAYMENT"};
+    var dalgrakDoc = dalgrakApp
+      .firestore()
+      .collection("dalgraks")
+      .doc(dalgrak.id);
 
-    await dalgrakApp
-    .firestore()
-    .collection("dalgraks")
-    .doc(dalgrakId)
-    .update(request);
-    
-
-    await dalgrakApp
-    .firestore()
-    .collection("biddings")
-    .doc(id)
-    .update(request);
-    
-
-    dispatch(getFeed());
-    return true;
+    let biddingDoc;
+    batch.update(dalgrakDoc, request);
+    for (let bidding of dalgrak.biddings) {
+      biddingDoc = dalgrakApp
+        .firestore()
+        .collection("biddings")
+        .doc(bidding.id);
+      if (bidding.id == biddingId) {
+        batch.update(biddingDoc, {
+          status: "WAITING_FOR_PAYMENT"
+        });
+      } else {
+        batch.update(biddingDoc, {
+          status: "FAIL"
+        });
+      }
+    }
+    if(batch.commit()) {
+      dispatch(getFeed());
+      return true;
+    }
+    return false;
    
   };
 }
