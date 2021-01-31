@@ -10,6 +10,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import ProfileNumber from "../ProfileNumber";
 //import Like from "../Like";
@@ -46,7 +47,17 @@ class Profile extends Component {
             </View>
               
           </View>
-        <View style={{ flex: 5, backgroundColor: "lightgray" }}></View>
+        <View style={{ flex: 5, backgroundColor: "lightgray" }}>
+          <TouchableOpacity
+            onPressOut={() => this.props.navigation.navigate("Notification")}
+            >
+            <View>
+              <Text>
+                Touch!
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -121,4 +132,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default function (props) {
+  const navigation = useNavigation();
+  return <Profile {...props} navigation={navigation} />;
+}
+

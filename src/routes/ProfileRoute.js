@@ -1,6 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../screens/ProfileScreen";
+import NotificationScreen from "../screens/NotificationScreen"
+
 import { Component } from "react";
 import { COLORS } from "../constants";
 const Stack = createStackNavigator();
@@ -13,6 +15,16 @@ class ProfileRoute extends Component {
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerTintColor: "white",
+          }}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={NotificationScreen}
           options={{
             headerStyle: {
               backgroundColor: COLORS.DALGRAK,
