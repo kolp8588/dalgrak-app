@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useEffect} from 'react';
+
 import {
   SafeAreaView,
   StatusBar,
@@ -27,11 +29,17 @@ import { color } from "react-native-reanimated";
 
 
 
+
 const { height, width } = Dimensions.get("window");
 
 
+const DargrakBasicScreen = (props) => {
+  
+  useEffect(()=>{  
+    props.pickCategory();
+  },[])
+  return (
 
-const DargrakBasicScreen = (props) => (
 
   <View style={COMMON_STYLES.CONTAINER}>
      <Modal
@@ -63,36 +71,9 @@ const DargrakBasicScreen = (props) => (
       backgroundColor="white" //Android
       barStyle="dark-content" // IOS
     />
-    {!props.category && (
-      <View style={COMMON_STYLES.FLEX_START}>
-        <Text
-          style={{
-            marginTop: 50,
-            fontSize: FONTS.SIZE.TITLE,
-          }}
-        >
-          아이템 고르기
-        </Text>
-        <Text
-          style={{
-            marginTop: 20,
-            marginBottom: 50,
-            fontSize: FONTS.SIZE.CONTENTS,
-          }}
-        >
-          입찰을 원하는 상품을 선택해주세요
-        </Text>
-        <Image
-          source={require("../../../assets/images/farmer.png")}
-          style={{
-            width: 200,
-            height: 200,
-            marginBottom: 40,
-          }}
-        />
-        <Button title="선택하기" onPress={() => props.pickCategory()}></Button>
-      </View>
-    )}
+  
+
+
     {props.category && (
       <View style={COMMON_STYLES.FLEX_START}>
         <ScrollView
@@ -378,7 +359,8 @@ const DargrakBasicScreen = (props) => (
       </View>
     )}
   </View>
-);
+  )
+};
 
 DargrakBasicScreen.propTypes = {
   unit: PropTypes.string.isRequired,

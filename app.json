@@ -4,7 +4,7 @@
     "slug": "dalgrak",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/farmer.png",
+    "icon": "./assets/images/dalgrak_logo.png",
     "splash": {
       "image": "./assets/images/loading.png",
       "resizeMode": "contain",
@@ -32,6 +32,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "낙찰하기 추가"
+    "description": "test"
   }
 }
