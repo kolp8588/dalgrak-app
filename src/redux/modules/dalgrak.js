@@ -62,12 +62,12 @@ function getFeed() {
               const biddingData = bidding.data();
               biddingData.id = bidding.id;
               
-              const userDocs = await secondaryApp
+              const userDocs = await dalgrakApp
               .firestore()
-              .collection("users")
+              .collection("sellers")
               .doc(biddingData.userId)
               .get();
-
+              
               biddingData.seller = userDocs.data();
 
               biddings.push(biddingData);
