@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {LinearGradient} from 'expo-linear-gradient';
 
@@ -8,12 +9,10 @@ import ProfileEditScreen from "../screens/ProfileEditScreen";
 import DeliveryManageScreen from "../screens/DeliveryManageScreen";
 import FAQScreen from "../screens/FAQScreen";
 
-
-
-
 import { Component } from "react";
 import { COLORS } from "../constants";
 import EventsRoute from "./EventsRoute";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const Stack = createStackNavigator();
 
 class ProfileRoute extends Component {
@@ -45,6 +44,14 @@ class ProfileRoute extends Component {
           options={{
             headerTitle: "프로필 편집",
             headerTintColor: "white",     
+            headerRight: () => (
+              <TouchableOpacity
+                style={{ marginRight: 20 }}
+                // onPress={() => navigation.navigate("Events")}
+              >
+                <Text>저장</Text>
+              </TouchableOpacity>
+            ),
           }}
         />
         <Stack.Screen
