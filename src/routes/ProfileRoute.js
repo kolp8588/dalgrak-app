@@ -1,7 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileScreen from "../screens/ProfileScreen";
-import NotificationScreen from "../screens/NotificationScreen"
+import NotificationScreen from "../screens/EventScreen";
+import ProfileEditScreen from "../screens/ProfileEditScreen";
+import DeliveryManageScreen from "../screens/DeliveryManageScreen";
+import FAQScreen from "../screens/FAQScreen";
+
+
+
 
 import { Component } from "react";
 import { COLORS } from "../constants";
@@ -32,6 +38,28 @@ class ProfileRoute extends Component {
             headerTintColor: "white",
           }}
         />
+         <Stack.Screen
+          name="FAQ"
+          component={FAQScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerTintColor: "white",
+          }}
+        />
+        <Stack.Screen
+          name="Delivery"
+          component={DeliveryManageScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerTintColor: "white",
+          }}
+        />
+      
+        
       </Stack.Navigator>
     );
   }

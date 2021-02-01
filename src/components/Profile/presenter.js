@@ -22,7 +22,8 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPressOut={this.props.showAS}>
+          <TouchableOpacity onPressOut={() => this.props.navigation.navigate("ProfileEdit")}
+          >
             <Image
               source={require("../../../assets/images/noPhoto.jpg")}
               style={styles.avatar}
@@ -46,18 +47,72 @@ class Profile extends Component {
               />
             </View>
               
-          </View>
-        <View style={{ flex: 5, backgroundColor: "lightgray" }}>
+        </View>
+
+        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
+        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
+        </View>
+
+        <View style={{ flex: 2, backgroundColor: "white" }}>
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("Notification")}
             >
             <View>
               <Text>
-                Touch!
+                공지사항
               </Text>
             </View>
           </TouchableOpacity>
         </View>
+
+        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
+        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
+        </View>
+
+        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <TouchableOpacity
+            onPressOut={() => this.props.navigation.navigate("FAQScreen")}
+            >
+            <View>
+              <Text>
+                고객센터
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
+        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
+        </View>
+
+        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <TouchableOpacity
+            onPressOut={() => this.props.navigation.navigate("Delivery")}
+            >
+            <View>
+              <Text>
+                배송관리
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
+        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
+        </View>
+
+        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <TouchableOpacity
+            onPressOut={() => this.props.navigation.navigate("Notification")}
+            >
+            <View>
+              <Text>
+                이벤트
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
