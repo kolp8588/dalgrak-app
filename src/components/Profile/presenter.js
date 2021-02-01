@@ -62,14 +62,14 @@ class Profile extends Component {
             </View>
           </View>
         </View>
-        <View style={styles.contents}>
-          <View
+        <View
             style={{
-              borderTopWidth: 1,
-              borderTopColor: COLORS.MINOR,
-              marginVertical: 10,
+              borderColor: COLORS.INPUT,
+              borderWidth: 4,
+              marginBottom: 20,
             }}
           />
+        <View style={styles.contents}>
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("Notification")}
             >
@@ -87,7 +87,7 @@ class Profile extends Component {
             }}
           />
           <TouchableOpacity
-            onPressOut={() => this.props.navigation.navigate("FAQScreen")}
+            onPressOut={() => this.props.navigation.navigate("FAQ")}
             >
             <View>
               <Text style={styles.headerText}>
@@ -134,7 +134,22 @@ class Profile extends Component {
               marginVertical: 10,
             }}
           />
+          <TouchableOpacity onPressOut={this.props.showAS}>
+            <View>
+              <Text style={styles.headerText}>
+                로그아웃
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
         </View>
+        
       </ScrollView>
     );
   }

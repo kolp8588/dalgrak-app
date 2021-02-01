@@ -34,50 +34,40 @@ class ProfileRoute extends Component {
           name="Profile"
           component={ProfileScreen}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.DALGRAK,
-            },
-            headerTintColor: "white",
+            headerTitle: "나의 달그락",
+            headerTintColor: "white",     
           }}
         />
         <Stack.Screen
           name="ProfileEdit"
           component={ProfileEditScreen}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.DALGRAK,
-            },
-            headerTintColor: "white",
+            headerTitle: "프로필 편집",
+            headerTintColor: "white",     
           }}
         />
         <Stack.Screen
           name="Notification"
           component={NotificationScreen}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.DALGRAK,
-            },
-            headerTintColor: "white",
+            headerTitle: "공지사항",
+            headerTintColor: "white",     
           }}
         />
          <Stack.Screen
           name="FAQ"
           component={FAQScreen}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.DALGRAK,
-            },
-            headerTintColor: "white",
+            headerTitle: "고객센터",
+            headerTintColor: "white",     
           }}
         />
         <Stack.Screen
           name="Delivery"
           component={DeliveryManageScreen}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.DALGRAK,
-            },
-            headerTintColor: "white",
+            headerTitle: "배송관리",
+            headerTintColor: "white",     
           }}
         />
       
