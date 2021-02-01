@@ -26,6 +26,7 @@ import Postcode from 'react-native-daum-postcode';
 import { WebView } from 'react-native-webview';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
+import ProfileNumber from "../../components/ProfileNumber";
 
 
 
@@ -37,33 +38,33 @@ const { height, width } = Dimensions.get("window");
 const ProfileEditScreen = (props) => {
   return (
     <View style={styles.header}>
-    <TouchableOpacity >
-      <ImageBackground
-        source={require("../../../assets/images/noPhoto.jpg")}
-        style={styles.avatar}
-        imageStyle={{borderRadius: 50}}
-        defaultSource={require("../../../assets/images/noPhoto.jpg")}
-      >
-      </ImageBackground>
-    </TouchableOpacity>
-    
-    <View style={styles.headerColumn}>
-      <View style={styles.profileNumbers}>
-        <ProfileNumber
-          number={"1"}
-          text={"달그락"}
-        />
-        <ProfileNumber
-          number={"2%"}
-          text={"입찰율"}
-        />
-        <ProfileNumber
-          number={"3%"}
-          text={"낙찰율"}
-        />
+      <TouchableOpacity >
+        <ImageBackground
+          source={require("../../../assets/images/noPhoto.jpg")}
+          style={styles.avatar}
+          imageStyle={{borderRadius: 50}}
+          defaultSource={require("../../../assets/images/noPhoto.jpg")}
+        >
+        </ImageBackground>
+      </TouchableOpacity>
+      
+      <View style={styles.headerColumn}>
+        <View style={styles.profileNumbers}>
+          <ProfileNumber
+            number={"1"}
+            text={"달그락"}
+          />
+          <ProfileNumber
+            number={"2%"}
+            text={"입찰율"}
+          />
+          <ProfileNumber
+            number={"3%"}
+            text={"낙찰율"}
+          />
+        </View>
+          
       </View>
-        
-    </View>
   </View>
   )
 };

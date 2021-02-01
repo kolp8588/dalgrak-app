@@ -29,6 +29,16 @@ class ProfileRoute extends Component {
           }}
         />
         <Stack.Screen
+          name="ProfileEdit"
+          component={ProfileEditScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: COLORS.DALGRAK,
+            },
+            headerTintColor: "white",
+          }}
+        />
+        <Stack.Screen
           name="Notification"
           component={NotificationScreen}
           options={{

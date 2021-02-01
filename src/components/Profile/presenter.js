@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import ProfileNumber from "../ProfileNumber";
 //import Like from "../Like";
 import { COLORS, FONTS } from "../../constants"
 
@@ -33,18 +32,7 @@ class Profile extends Component {
         </View>
         <View style={styles.headerColumn}>
             <View style={styles.profileNumbers}>
-              <ProfileNumber
-                number={"12"}
-                text={"달그락"}
-              />
-              <ProfileNumber
-                number={"25%"}
-                text={"입찰율"}
-              />
-              <ProfileNumber
-                number={"33%"}
-                text={"낙찰율"}
-              />
+          
             </View>
               
         </View>
