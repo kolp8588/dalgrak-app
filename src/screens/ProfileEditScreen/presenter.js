@@ -51,11 +51,11 @@ const ProfileEditScreen = (props) => {
       <View style={styles.headerColumn}>
         <View style={styles.profileNumbers}>
           <ProfileNumber
-            number={"1"}
+            number={"5"}
             text={"달그락"}
           />
           <ProfileNumber
-            number={"2%"}
+            number={"80%"}
             text={"입찰율"}
           />
           <ProfileNumber
@@ -63,9 +63,69 @@ const ProfileEditScreen = (props) => {
             text={"낙찰율"}
           />
         </View>
-          
       </View>
+
+      <TextInput 
+          style = {styles.inputText}
+          placeholder = "wntjd0809" 
+          />
+      
+      <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
+        <View style={{flex: 1, height: 7, backgroundColor: '#F2F2F2'}} />
+      </View>
+
+      <View style= {{
+        marginTop:10,
+        marginLeft:10,
+        marginBottom:20,
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 30,
+        }}>
+        <Text style= {{
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 14,
+        }}>
+          이메일    wntjd0809@gmai.com
+        </Text>
+        
+      </View>
+      <View style= {{
+        marginTop:10,
+        marginLeft:10,
+        marginBottom:20,
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 30,
+        }}>
+        <Text style= {{
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 14,
+        }}>
+          비밀번호
+        </Text>
+      </View>
+      <View style= {{
+        marginTop:10,
+        marginLeft:10,
+        marginBottom:20,
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 30,
+        }}>
+        <Text style= {{
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        fontSize: 14,
+        }}>
+          휴대폰 번호
+        </Text>
+      </View>
+
   </View>
+ 
   )
 };
 
@@ -78,9 +138,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },
   header: {
     flex: 1,
-    marginTop: 15,
+    //marginTop: 15,
+    //marginBottom: 10,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "white"
   },
   avatar: {
     width: 60,
@@ -88,6 +150,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "flex-end"
     
+  },
+  inputText: {
+    margin: 15,
+    height: 30,
+    width: 200,
+    borderColor: "#A4A4A4",
+    borderWidth: 1
   },
   headerColumn: {
     justifyContent: "center",
