@@ -36,6 +36,7 @@ const { height, width } = Dimensions.get("window");
 
 
 const ProfileEditScreen = (props) => {
+  console.log(props)
   return (
     <View style={styles.header}>
       <TouchableOpacity >
@@ -79,6 +80,7 @@ const ProfileEditScreen = (props) => {
         marginLeft:10,
         marginBottom:20,
         alignSelf: "flex-start",
+        flexDirection: "row",
         fontWeight: 'bold',
         fontSize: 30,
         }}>
@@ -87,9 +89,16 @@ const ProfileEditScreen = (props) => {
         fontWeight: 'bold',
         fontSize: 14,
         }}>
-          이메일    wntjd0809@gmai.com
+          이메일                 
         </Text>
-        
+        <Text style= {{
+        marginLeft:59,
+        fontWeight: 'bold',
+        fontSize: 14,
+        }}>
+          {props.route.params.profile.email}
+        </Text>
+
       </View>
       <View style= {{
         marginTop:10,
@@ -97,6 +106,7 @@ const ProfileEditScreen = (props) => {
         marginBottom:20,
         alignSelf: "flex-start",
         fontWeight: 'bold',
+        flexDirection: "row",
         fontSize: 30,
         }}>
         <Text style= {{
@@ -106,6 +116,18 @@ const ProfileEditScreen = (props) => {
         }}>
           비밀번호
         </Text>
+        <TextInput 
+          style = {{
+            marginLeft:40,
+            height: 30,
+            alignSelf:"center",
+            width: 200,
+            borderColor: "#A4A4A4",
+            borderWidth: 1
+          }}
+          placeholder = "10-20자 이내" 
+          secureTextEntry = { true }
+          />
       </View>
       <View style= {{
         marginTop:10,
