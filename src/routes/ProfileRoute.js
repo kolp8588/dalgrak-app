@@ -13,6 +13,7 @@ import FAQScreen from "../screens/FAQScreen";
 
 import { Component } from "react";
 import { COLORS } from "../constants";
+import EventsRoute from "./EventsRoute";
 const Stack = createStackNavigator();
 
 class ProfileRoute extends Component {
@@ -67,6 +68,14 @@ class ProfileRoute extends Component {
           component={DeliveryManageScreen}
           options={{
             headerTitle: "배송관리",
+            headerTintColor: "white",     
+          }}
+        />
+        <Stack.Screen
+          name="Events"
+          component={EventsRoute}
+          options={{
+            headerTitle: "이벤트",
             headerTintColor: "white",     
           }}
         />

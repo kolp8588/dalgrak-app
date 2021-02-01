@@ -119,7 +119,7 @@ class Profile extends Component {
             }}
           />
           <TouchableOpacity
-            onPressOut={() => this.props.navigation.navigate("Notification")}
+            onPressOut={() => this.props.navigation.navigate("Events")}
             >
             <View>
               <Text style={styles.headerText}>
