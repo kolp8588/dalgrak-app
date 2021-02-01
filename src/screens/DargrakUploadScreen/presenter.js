@@ -24,7 +24,6 @@ import FadeIn from "react-native-fade-in-image";
 import Postcode from 'react-native-daum-postcode';
 import { WebView } from 'react-native-webview';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { color } from "react-native-reanimated";
 
 
 

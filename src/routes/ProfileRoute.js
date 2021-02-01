@@ -1,5 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import {LinearGradient} from 'expo-linear-gradient';
+
 import ProfileScreen from "../screens/ProfileScreen";
 import NotificationScreen from "../screens/EventScreen";
 import ProfileEditScreen from "../screens/ProfileEditScreen";
@@ -17,7 +19,17 @@ class ProfileRoute extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerBackground: () =>
+              <LinearGradient
+                colors={[COLORS.DALGRAK, COLORS.DALGRAK_MEDIUM, COLORS.DALGRAK_DARK]}
+                style={{ flex: 1 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+              />
+        }}
+      >
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}

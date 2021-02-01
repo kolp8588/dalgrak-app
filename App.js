@@ -1,21 +1,19 @@
-import React from "react";
-import { AppLoading } from "expo";
-import { Asset } from "expo-asset";
-import * as Font from "expo-font";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import React from 'react';
+import { Image, Dimensions, View, StyleSheet, StatusBar } from 'react-native';
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+import * as SplashScreen from 'expo-splash-screen';
+import { Asset } from 'expo-asset';
 import { YellowBox } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./src/redux/configureStore";
 import AppContainer from "./src/components/AppContainer";
-//import { dalgrakApp, secondaryApp } from "./src/firebaseConfig";
-//import firebase from "firebase";
+import { COLORS } from "./src/constants"
 
 const { persistor, store } = configureStore();
-
-//!firebase.apps.length
-//  ? firebase.initializeApp(FIREBASE_CONFIG)
-//  : firebase.app();
+const { width, height } = Dimensions.get("window");
 
 YellowBox.ignoreWarnings([
   "Setting a timer",
@@ -24,21 +22,46 @@ YellowBox.ignoreWarnings([
   "Animated: `useNativeDriver`",
 ]);
 
-class App extends React.Component {
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+export default class App extends React.Component {
   state = {
-    isLoadingComplete: false,
+    isReady: false,
   };
+
+  componentDidMount() {
+    SplashScreen.preventAutoHideAsync();
+    Notifications.addNotificationReceivedListener(this._handleNotification);
+    Notifications.addNotificationResponseReceivedListener(this._handleNotificationResponse);
+  }
+  _handleNotification = notification => {
+    console.log(notification);
+  };
+
+  _handleNotificationResponse = response => {
+    console.log(response);
+  };
+
   render() {
-    const { isLoadingComplete } = this.state;
-    if (!isLoadingComplete) {
+    if (!this.state.isReady) {
       return (
-        <AppLoading
-          startAsync={this._loadAssetsAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
+        <View style={styles.container}>
+          <Image
+            source={require('./assets/images/dalgrak_full.png')}
+            onLoad={this._cacheResourcesAsync}
+            resizeMode="stretch"
+            style={styles.logo}
+          />
+        </View>
       );
     }
+
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
@@ -47,29 +70,44 @@ class App extends React.Component {
       </Provider>
     );
   }
-  _loadAssetsAsync = async () => {
-    return Promise.all([
-      Asset.loadAsync([
-        require("./assets/images/logo.png"),
-        require("./assets/images/loading.png"),
-        require("./assets/images/noPhoto.jpg"),
-        require("./assets/images/photoPlaceholder.png"),
-        require("./assets/images/farmer.png"),
-      ]),
-      Font.loadAsync({
-        ...Ionicons.font,
-        ...MaterialIcons.font,
-      }),
-    ]);
+
+  _cacheSplashResourcesAsync = async () => {
+    const gif = require('./assets/images/Logo.gif');
+    return Asset.fromModule(gif).downloadAsync();
   };
-  _handleLoadingError = (error) => {
-    console.error(error);
-  };
-  _handleFinishLoading = async () => {
-    this.setState({
-      isLoadingComplete: true,
-    });
+
+  _cacheResourcesAsync = async () => {
+    SplashScreen.hideAsync();
+
+    try {
+      const images = [
+        require('./assets/images/farmer.png'),
+        require('./assets/images/dalgrak_white.png'),
+        require('./assets/images/dalgrak_full.png'),
+      ];
+
+      const cacheImages = images.map(image => {
+        return Asset.fromModule(image).downloadAsync();
+      });
+
+      await Promise.all(cacheImages);
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      // this.setState({ isReady: true });
+      setTimeout(() => {this.setState({isReady: true})}, 1000);
+    }
   };
 }
-
-export default App;
+const styles = StyleSheet.create({
+  container:{
+    flex: 1, 
+    alignItems:"center", 
+    justifyContent: "center", 
+    paddingBottom: 150,
+  },
+  logo: {
+    width: width * 0.7,
+    resizeMode: "contain",
+  },
+})

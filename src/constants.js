@@ -4,7 +4,10 @@ export const API_URL = "http://220da09e.ngrok.io";
 export const FB_APP_ID = "332389001358220";
 
 export const COLORS = {
-  DALGRAK: "#23344E",
+  DALGRAK: "#4BBFAE",
+  DALGRAK_MEDIUM: "#009E91",
+  DALGRAK_DARK: "#007970",
+  SUCCESS: "#27AE60",
   MINOR: "#bbb",
   WARNING: "#EB5757",
   INPUT: "#F2F2F2",

@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DalgrakScreen from "../screens/DalgrakScreen";
 import DalgrakSellerScreen from "../screens/DalgrakSellerScreen";
 import FeedScreen from "../screens/FeedScreen";
+import {LinearGradient} from 'expo-linear-gradient';
+
 import { COLORS } from "../constants";
 
 const Stack = createStackNavigator();
@@ -14,6 +16,13 @@ class HomeRoute extends Component {
     return (
       <Stack.Navigator
         screenOptions={{
+          headerBackground: () =>
+              <LinearGradient
+                colors={[COLORS.DALGRAK, COLORS.DALGRAK_MEDIUM, COLORS.DALGRAK_DARK]}
+                style={{ flex: 1 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+              />,
           headerTintColor: "white",
         }}
       >
@@ -75,8 +84,8 @@ function LogoTitle() {
       }}
     >
       <Image
-        style={{ width: 70, resizeMode: "contain" }}
-        source={require("../../assets/images/logo.png")}
+        style={{ width: 40, height:40, resizeMode: "contain" }}
+        source={require("../../assets/images/dalgrak_white.png")}
       />
     </View>
   );

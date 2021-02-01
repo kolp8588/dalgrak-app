@@ -5,11 +5,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/dalgrak_logo.png",
-    "splash": {
-      "image": "./assets/images/loading.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#23344E"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -18,8 +13,8 @@
       "**/*"
     ],
     "androidStatusBar": {
-      "backgroundColor": "#23344E",
-      "barStyle": "light-content",
+      "style": "dark",
+      "barStyle": "dark-content",
       "translucent": false
     },
     "android": {
