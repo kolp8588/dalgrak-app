@@ -62,72 +62,79 @@ class Profile extends Component {
             </View>
           </View>
         </View>
-        
-
-        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
-        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
-        </View>
-
-        <View style={{ flex: 2, backgroundColor: "white" }}>
+        <View style={styles.contents}>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("Notification")}
             >
             <View>
-              <Text>
+              <Text style={styles.headerText}>
                 공지사항
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-
-        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
-        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
-        </View>
-
-        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("FAQScreen")}
             >
             <View>
-              <Text>
+              <Text style={styles.headerText}>
                 고객센터
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-
-        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
-        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
-        </View>
-
-        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("Delivery")}
             >
             <View>
-              <Text>
+            <Text style={styles.headerText}>
                 배송관리
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-
-        <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
-        <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
-        </View>
-
-        <View style={{ flex: 2, backgroundColor: "white" }}>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
           <TouchableOpacity
             onPressOut={() => this.props.navigation.navigate("Notification")}
             >
             <View>
-              <Text>
+              <Text style={styles.headerText}>
                 이벤트
               </Text>
             </View>
           </TouchableOpacity>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: COLORS.MINOR,
+              marginVertical: 10,
+            }}
+          />
         </View>
-
       </ScrollView>
     );
   }
@@ -157,9 +164,11 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     justifyContent: "space-between",
   },
-  headerText: {
-    paddingLeft: 15,
-    paddingRight: 15,
+  contents: {
+    marginHorizontal: 10,
+  },
+  headerText: {    
+    fontSize: FONTS.SIZE.H1,
   },
   name: {
     fontWeight: "600",
