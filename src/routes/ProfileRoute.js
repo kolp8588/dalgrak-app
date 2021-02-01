@@ -49,7 +49,9 @@ class ProfileRoute extends Component {
                 style={{ marginRight: 20 }}
                 // onPress={() => navigation.navigate("Events")}
               >
-                <Text>저장</Text>
+                <Text style={{
+                  color:"white",
+                }}>저장</Text>
               </TouchableOpacity>
             ),
           }}

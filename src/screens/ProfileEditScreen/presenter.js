@@ -35,11 +35,17 @@ import ProfileNumber from "../../components/ProfileNumber";
 const { height, width } = Dimensions.get("window");
 
 
+
 const ProfileEditScreen = (props) => {
   console.log(props)
+
   return (
     <View style={styles.header}>
-      <TouchableOpacity >
+      
+      <TouchableOpacity 
+      style = {{
+        marginbo:100
+      }}>
         <ImageBackground
           source={require("../../../assets/images/noPhoto.jpg")}
           style={styles.avatar}
@@ -104,13 +110,14 @@ const ProfileEditScreen = (props) => {
         marginTop:10,
         marginLeft:10,
         marginBottom:20,
-        alignSelf: "flex-start",
+        alignItems:"center",
+        //alignSelf: "flex-start",
         fontWeight: 'bold',
         flexDirection: "row",
         fontSize: 30,
         }}>
         <Text style= {{
-        alignSelf: "flex-start",
+        alignItems: "center",
         fontWeight: 'bold',
         fontSize: 14,
         }}>
@@ -122,19 +129,41 @@ const ProfileEditScreen = (props) => {
             height: 30,
             alignSelf:"center",
             width: 200,
+            backgroundColor:
+                  props.setPassword == true
+                    ? "white"  
+                    : "#A4A4A4",
             borderColor: "#A4A4A4",
             borderWidth: 1
           }}
           placeholder = "10-20자 이내" 
           secureTextEntry = { true }
+          editable = { true } 
           />
+        <TouchableOpacity
+                style={{
+                  backgroundColor:COLORS.DALGRAK,
+                  marginLeft:10,
+                  width: 60,
+                  alignSelf:"cetner",
+                  height: 30,
+                 }}
+                 onPressOut={() => props.editPassword()}
+              >
+                <Text style={{
+                  color:"white",
+                  marginTop:7,
+                  marginLeft:6,
+                  fontWeight: 'bold', 
+                }}>변경하기</Text>
+        </TouchableOpacity>
       </View>
       <View style= {{
         marginTop:10,
         marginLeft:10,
-        marginBottom:20,
         alignSelf: "flex-start",
         fontWeight: 'bold',
+        flexDirection: "row",
         fontSize: 30,
         }}>
         <Text style= {{
@@ -142,9 +171,84 @@ const ProfileEditScreen = (props) => {
         fontWeight: 'bold',
         fontSize: 14,
         }}>
-          휴대폰 번호
+          휴대폰 인증
         </Text>
+
       </View>
+      <View style= {{
+        marginTop:10,
+        marginLeft:10,
+        alignSelf: "flex-start",
+        fontWeight: 'bold',
+        flexDirection: "row",
+        fontSize: 30,
+        }}>
+        <TextInput 
+          style = {{
+            height: 40,
+            alignSelf:"center",
+            width: 90,
+            fontWeight: 'bold',
+            textAlign:"center",
+            borderColor: "#A4A4A4",
+            borderWidth: 1
+          }}
+          placeholder = "010" 
+          editable = { false } 
+        />
+        <TextInput 
+          style = {{
+            height: 40,
+            marginLeft: 10,
+            alignSelf:"center",
+            width: 90,
+            fontWeight: 'bold',
+            textAlign:"center",
+            borderColor: "#A4A4A4",
+            borderWidth: 1
+          }}
+          placeholder = "4538" 
+          editable = { false }
+        />
+        <TextInput 
+          style = {{
+            height: 40,
+            marginLeft: 10,
+            alignSelf:"center",
+            width: 90,
+            fontWeight: 'bold',
+            textAlign:"center",
+            borderColor: "#A4A4A4",
+            borderWidth: 1
+          }}
+          placeholder = "5090" 
+          editable = { false }
+        />
+        <TouchableOpacity
+                style={{
+                  backgroundColor:COLORS.DALGRAK,
+                  marginLeft:10,
+                  width: 60,
+                  alignSelf:"cetner",
+                  height: 40,
+                 }}
+                // onPress={() => navigation.navigate("Events")}
+              >
+                <Text style={{
+                  color:"white",
+                  marginTop:12,
+                  marginLeft:16,
+                  fontWeight: 'bold', 
+                }}>인증</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style ={{
+        marginBottom: 200
+      }}>
+
+      </View>
+      
 
   </View>
  
