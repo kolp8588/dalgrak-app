@@ -7,10 +7,11 @@ import {
   RefreshControl,
   StyleSheet,
   Dimensions,
-  Image,
+  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import ProfileNumber from "../ProfileNumber";
 
 //import Like from "../Like";
 import { COLORS, FONTS } from "../../constants"
@@ -19,23 +20,49 @@ const width = Dimensions.get("window").width;
 class Profile extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}
+        refreshControl={
+          <RefreshControl
+            tintColor={"black"}
+            titleColor={"black"}
+            refreshing={this.props.isFetching}
+            onRefresh={this.props.refresh}
+          />
+        }>
         <View style={styles.header}>
-          <TouchableOpacity onPressOut={() => this.props.navigation.navigate("ProfileEdit")}
+          <TouchableOpacity 
+            onPressOut={() => this.props.navigation.navigate("ProfileEdit", {
+              profile: this.props.profileObject
+            })}
           >
-            <Image
+            <ImageBackground
               source={require("../../../assets/images/noPhoto.jpg")}
               style={styles.avatar}
+              imageStyle={{borderRadius: 50}}
               defaultSource={require("../../../assets/images/noPhoto.jpg")}
             />
           </TouchableOpacity>
-        </View>
-        <View style={styles.headerColumn}>
+          <Text style={{fontSize: FONTS.SIZE.H1, fontWeight: "bold", marginBottom: 10}}>
+            {this.props.profileObject.username}
+          </Text>
+          <View style={styles.headerColumn}>
             <View style={styles.profileNumbers}>
-          
+            <ProfileNumber
+                number={"12"}
+                text={"달그락"}
+              />
+              <ProfileNumber
+                number={"25%"}
+                text={"입찰율"}
+              />
+              <ProfileNumber
+                number={"33%"}
+                text={"낙찰율"}
+              />
             </View>
-              
+          </View>
         </View>
+        
 
         <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
         <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
@@ -101,7 +128,7 @@ class Profile extends Component {
           </TouchableOpacity>
         </View>
 
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -111,19 +138,19 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },
   header: {
     flex: 1,
-    flexDirection: "row",
     marginTop: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center"
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 50,
+    justifyContent: "flex-end"
   },
   headerColumn: {
-    width: width / 2,
+    justifyContent: "center",
+    width: width * 0.5,
   },
   profileNumbers: {
     flexDirection: "row",
