@@ -8,8 +8,9 @@ class Container extends Component {
     getOwnProfile: PropTypes.func.isRequired,
   };
   render() {
-    const { profile, getOwnProfile } = this.props;
-    return <Profile profileObject={profile} refresh={getOwnProfile} />;
+    const { user, profile, getOwnProfile } = this.props;
+    return <Profile user={user} profile={profile} 
+     refresh={getOwnProfile} />;
   }
 }
 

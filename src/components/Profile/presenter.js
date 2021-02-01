@@ -32,7 +32,7 @@ class Profile extends Component {
         <View style={styles.header}>
           <TouchableOpacity 
             onPressOut={() => this.props.navigation.navigate("ProfileEdit", {
-              profile: this.props.profileObject
+              profile: this.props.profile
             })}
           >
             <ImageBackground
@@ -43,7 +43,7 @@ class Profile extends Component {
             />
           </TouchableOpacity>
           <Text style={{fontSize: FONTS.SIZE.H1, fontWeight: "bold", marginBottom: 10}}>
-            {this.props.profileObject.username}
+            {this.props.profile.username}
           </Text>
           <View style={styles.headerColumn}>
             <View style={styles.profileNumbers}>
