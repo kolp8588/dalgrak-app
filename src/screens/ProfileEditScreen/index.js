@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Container from "./container";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -9,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return { 
     submitProfile: (userProfile) => {
-    return dispatch(dalgrakActions.submitProfile(userProfile));
+    return dispatch(userActions.submitProfile(userProfile));
   },
 };
 };

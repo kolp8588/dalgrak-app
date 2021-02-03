@@ -162,6 +162,20 @@ function facebookLogin() {
     }
   };
 }
+function submitProfile(profile) {
+  return async (dispatch, getState) => {
+    const {
+      user: { token },
+    } = getState();
+    profile.userId = token;
+   
+    if (addProfile(request)) {
+      dispatch(setProfile(request));
+      return true;
+    }
+    return false;
+  };
+}
 
 async function addProfile(request) {
   try {
@@ -339,6 +353,7 @@ const actionCreators = {
   getNotifications,
   getOwnProfile,
   registerForPush,
+  submitProfile,
 };
 
 export { actionCreators };
