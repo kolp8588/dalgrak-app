@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { SafeAreaView, StatusBar, View, StyleSheet } from "react-native";
+import { StatusBar, View, StyleSheet } from "react-native";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 import RootNavigation from "../../navigation/RootNavigation";
 import { COLORS } from "../../constants";
@@ -17,6 +17,7 @@ class AppContainer extends Component {
     const { isLoggedIn, profile } = this.props;
     return (
       <Fragment>
+        <StatusBar translucent={true} barStyle={'light-content'} backgroundColor={'transparent'} />
         <View style={styles.container}>
           {isLoggedIn && profile ? (
             <RootNavigation screenProps={{ username: profile.username }} />
@@ -24,7 +25,6 @@ class AppContainer extends Component {
             <LoggedOutNavigation />
           )}
         </View>
-        <SafeAreaView />
       </Fragment>
     );
   }

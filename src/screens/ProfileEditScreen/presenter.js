@@ -145,7 +145,7 @@ const ProfileEditScreen = (props) => {
                   backgroundColor:COLORS.DALGRAK,
                   marginLeft:10,
                   width: 60,
-                  alignSelf:"cetner",
+                  alignSelf:"center",
                   height: 30,
                  }}
                  onPressOut={() => props.editPassword()}
@@ -229,7 +229,7 @@ const ProfileEditScreen = (props) => {
                   backgroundColor:COLORS.DALGRAK,
                   marginLeft:10,
                   width: 60,
-                  alignSelf:"cetner",
+                  alignSelf:"center",
                   height: 40,
                  }}
                 // onPress={() => navigation.navigate("Events")}

@@ -13,7 +13,7 @@ function LoggedOutNavigation() {
           name="LogIn"
           component={LogInScreen}
           options={{
-            headerTitle: false,
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

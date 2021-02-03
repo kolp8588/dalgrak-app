@@ -17,9 +17,10 @@ const { width, height } = Dimensions.get("window");
 
 const LogInScreen = (props) => (
   <View style={styles.container}>
+    <StatusBar translucent={true} barStyle={'light-content'} backgroundColor={'transparent'} />
     <View style={styles.header}>
       <Image
-        source={require("../../../assets/images/logo_login.png")}
+        source={require("../../../assets/images/dalgrak_full.png")}
         resizeMode="stretch"
         style={styles.logo}
       />
@@ -89,25 +90,21 @@ LogInScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   header: {
-    flex: 2,
-    backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
-    width,
   },
   logo: {
-    width: 250,
+    height: 150,
     resizeMode: "contain",
     marginTop: 50,
   },
   content: {
-    flex: 4,
     backgroundColor: "white",
     paddingTop: 50,
     alignItems: "center",
-    justifyContent: "flex-start",
   },
   fbContainer: {
     marginTop: 30,
