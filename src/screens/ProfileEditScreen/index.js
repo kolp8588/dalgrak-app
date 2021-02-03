@@ -7,7 +7,11 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {};
+  return { 
+    submitProfile: (userProfile) => {
+    return dispatch(dalgrakActions.submitProfile(userProfile));
+  },
+};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

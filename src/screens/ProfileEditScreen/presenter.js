@@ -102,7 +102,7 @@ const ProfileEditScreen = (props) => {
         fontWeight: 'bold',
         fontSize: 14,
         }}>
-          {props.route.params.profile.email}
+          {props.route.params.profile.username}
         </Text>
 
       </View>

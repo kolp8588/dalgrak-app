@@ -147,6 +147,32 @@ function submitDalgrak(dalgrak) {
     }
   };
 }
+/*
+function submitProfile(userProfile) {
+  return async (dispatch, getState) => {
+    const {
+     
+      user: { token },
+    } = getState();
+
+    userProfile.userId = token;
+    userProfile.username,
+    userProfile.password,
+    userProfile.phoneNumberuserProfile
+    
+
+    const response = await dalgrakApp
+      .firestore()
+      .collection("dalgraks")
+      .add(dalgrak);
+    if (response) {
+      dispatch(getFeed());
+      return true;
+    } else {
+      return false;
+    }
+  };
+}*/
 
 function successfulBid(dalgrak, biddingId) {
   return async (dispatch, getState) => {
@@ -281,6 +307,7 @@ const actionCreators = {
   refreshStates,
   submitDalgrak,
   successfulBid,
+  submitProfile,
 };
 
 export { actionCreators };

@@ -4,7 +4,10 @@ import ProfileEditScreen from "./presenter";
 
 class Container extends Component {
   state = {
-    setPassword:false
+    setPassword:false,
+    phoneNumber:"",
+    username:"",
+    password:""
   };
 
   render() {
@@ -13,6 +16,7 @@ class Container extends Component {
         {...this.state}
         {...this.props}
         editPassword={this._editPassword}
+        profileSubmit={this._profileSubmit}
       />
     );
   }
@@ -21,6 +25,24 @@ class Container extends Component {
     this.setState({
       setPassword: true,
     });
+  };
+
+  _profileSubmit = async () => {
+
+    const { submitProfile } = this.props;
+    const { phoneNumber,username,password } = this.state;
+
+    const param = {
+      username,
+      password,
+      phoneNumber
+
+    };
+
+    const uploadResult = await submitProfile(param);
+    if (uploadResult) {
+      this.props.navigation.goBack();
+    }
   };
 }
 
