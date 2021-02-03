@@ -164,13 +164,13 @@ function facebookLogin() {
 }
 function submitProfile(profile) {
   return async (dispatch, getState) => {
-    const {
+  /*  const {
       user: { token },
     } = getState();
     profile.userId = token;
-   
-    if (addProfile(request)) {
-      dispatch(setProfile(request));
+   */
+    if (addProfile(profile)) {
+      dispatch(setProfile(profile));
       return true;
     }
     return false;
