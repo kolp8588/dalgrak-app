@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {LinearGradient} from 'expo-linear-gradient';
 
 import ProfileScreen from "../screens/ProfileScreen";
-import NotificationScreen from "../screens/EventScreen";
+import NotificationScreen from "../screens/NotificationScreen";
 import ProfileEditScreen from "../screens/ProfileEditScreen";
 import DeliveryManageScreen from "../screens/DeliveryManageScreen";
 import FAQScreen from "../screens/FAQScreen";

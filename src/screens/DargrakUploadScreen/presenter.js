@@ -25,6 +25,8 @@ import Postcode from 'react-native-daum-postcode';
 import { WebView } from 'react-native-webview';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 
 
@@ -75,7 +77,7 @@ const DargrakBasicScreen = (props) => {
 
     {props.category && (
       <View style={COMMON_STYLES.FLEX_START}>
-        <ScrollView
+        <KeyboardAwareScrollView
           style={{
             flex: 1,
             alignSelf: "stretch",
@@ -354,7 +356,7 @@ const DargrakBasicScreen = (props) => {
         </View>
 
         
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     )}
   </View>
@@ -413,6 +415,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     padding: 5,
     width: width-10,
+    height: 100,
     backgroundColor: COLORS.INPUT,
     fontSize: FONTS.SIZE.CONTENTS,
   },
