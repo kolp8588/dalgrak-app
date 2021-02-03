@@ -138,7 +138,7 @@ const ProfileEditScreen = (props) => {
           }}
           placeholder = "10-20자 이내" 
           secureTextEntry = { true }
-          editable = { true } 
+          editable = { props.setPassword } 
           />
         <TouchableOpacity
                 style={{
