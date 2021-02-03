@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Dimensions, View, StyleSheet, StatusBar } from 'react-native';
+import { Image, Dimensions, View, StyleSheet } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';

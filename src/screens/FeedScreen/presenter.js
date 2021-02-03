@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  StatusBar,
   View,
   Text,
   ScrollView,
@@ -22,13 +21,6 @@ const FeedScreen = (props) => (
       />
     }
   >
-    <StatusBar
-      translucent
-      animated={false}
-      hidden={false}
-      backgroundColor={COLORS.DALGRAK} //Android
-      barStyle="light-content" // IOS
-    />
     <View style={styles.container}>
       {props.feed &&
         props.feed.map((dalgrak, index) => {

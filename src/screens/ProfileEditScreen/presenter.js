@@ -3,7 +3,6 @@ import React, { useEffect} from 'react';
 
 import {
   SafeAreaView,
-  StatusBar,
   View,
   Text,
   Modal,
