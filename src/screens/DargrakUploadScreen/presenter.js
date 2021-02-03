@@ -3,7 +3,6 @@ import React, { useEffect} from 'react';
 
 import {
   SafeAreaView,
-  StatusBar,
   View,
   Text,
   Modal,
@@ -65,16 +64,6 @@ const DargrakBasicScreen = (props) => {
         </View>
       </View>
     </Modal>
-    <StatusBar
-      translucent
-      animated={false}
-      hidden={false}
-      backgroundColor="white" //Android
-      barStyle="dark-content" // IOS
-    />
-  
-
-
     {props.category && (
       <View style={COMMON_STYLES.FLEX_START}>
         <KeyboardAwareScrollView
