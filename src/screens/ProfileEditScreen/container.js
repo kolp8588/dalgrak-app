@@ -6,7 +6,7 @@ class Container extends Component {
   state = {
     setPassword:false,
     phoneNumber:"",
-    username:"",
+    username:this.props.profile.username,
     password:""
   };
 
@@ -17,29 +17,38 @@ class Container extends Component {
         {...this.props}
         editPassword={this._editPassword}
         profileSubmit={this._profileSubmit}
+        changeUsername={this._changeUsername}
       />
     );
   }
-
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.profile) {
+      this.setState({
+        isFetching: false,
+      });
+    }
+  };
+  
   _editPassword = (text) => {
     this.setState({
       setPassword: true,
     });
   };
 
+  _changeUsername = (text) => {
+    this.setState({
+      username: text,
+    });
+  };
+
   _profileSubmit = async () => {
 
-    const { submitProfile } = this.props;
-    const { phoneNumber,username,password } = this.state;
+    const { profile, submitProfile } = this.props;
+    const { username } = this.state;
 
-    const param = {
-      username,
-      password,
-      phoneNumber
+    profile.username = username;
 
-    };
-
-    const uploadResult = await submitProfile(param);
+    const uploadResult = await submitProfile(profile);
     if (uploadResult) {
       this.props.navigation.goBack();
     }

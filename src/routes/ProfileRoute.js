@@ -44,16 +44,16 @@ class ProfileRoute extends Component {
           options={{
             headerTitle: "프로필 편집",
             headerTintColor: "white",     
-            headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: 20 }}
-                // onPress={() => navigation.navigate("Events")}
-              >
-                <Text style={{
-                  color:"white",
-                }}>저장</Text>
-              </TouchableOpacity>
-            ),
+            // headerRight: () => (
+            //   <TouchableOpacity
+            //     style={{ marginRight: 20 }}
+            //     // onPress={() => navigation.navigate("Events")}
+            //   >
+            //     <Text style={{
+            //       color:"white",
+            //     }}>저장</Text>
+            //   </TouchableOpacity>
+            // ),
           }}
         />
         <Stack.Screen

@@ -66,7 +66,8 @@ function login(username, password) {
         });
       if (response && response.user) {
         const request = {};
-        request.username = response.user.email;
+        request.username = response.user.email.split("@")[0];
+        request.email = response.user.email;
         request.userId = response.user.uid;
         if (response.user.token == "") {
           console.log("No token")
@@ -164,13 +165,15 @@ function facebookLogin() {
 }
 function submitProfile(profile) {
   return async (dispatch, getState) => {
-  /*  const {
+    const {
       user: { token },
     } = getState();
-    profile.userId = token;
-   */
+
     if (addProfile(profile)) {
-      dispatch(setProfile(profile));
+      const profileData = await getProfile(token)
+      if (profileData != null) {
+        dispatch(setProfile(profileData));
+      }
       return true;
     }
     return false;
@@ -217,27 +220,43 @@ function getNotifications() {
 }
 
 function getOwnProfile() {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const {
       user: {
         token,
-        profile: { username },
       },
     } = getState();
-    fetch(`${API_URL}/users/${username}/`, {
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          dispatch(logOut());
-        } else {
-          return response.json();
-        }
-      })
-      .then((json) => dispatch(setUser(json)));
+    try {
+      const profile = await getProfile(token)
+      if (profile != null) {
+        dispatch(setProfile(profile));
+        return true;
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    return false;
   };
+}
+
+async function getProfile(userId) {
+  try {
+    const doc = await dalgrakApp
+      .firestore()
+      .collection("users")
+      .doc(userId)
+      .get();
+    if (doc != null) {
+      return doc.data();
+      
+    } else {
+      console.log("NO DATA");
+      return null;
+    }
+  } catch (error) {
+    console.error("ERROR : ", error.message);
+  }
+  return null;
 }
 
 function registerForPush() {

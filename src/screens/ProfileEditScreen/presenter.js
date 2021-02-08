@@ -37,7 +37,6 @@ const { height, width } = Dimensions.get("window");
 
 const ProfileEditScreen = (props) => {
   console.log(props)
-
   return (
     <View style={styles.header}>
       
@@ -72,9 +71,11 @@ const ProfileEditScreen = (props) => {
       </View>
 
       <TextInput 
-          style = {styles.inputText}
-          placeholder = "wntjd0809" 
-          />
+        value={props.username}  
+        style = {styles.inputText}
+        placeholder = "닉네임"
+        onChangeText={props.changeUsername}
+      />
       
       <View style={{flexDirection: 'row', alignItems: 'center' , marginTop:15}}>
         <View style={{flex: 1, height: 7, backgroundColor: '#F2F2F2'}} />
@@ -101,7 +102,7 @@ const ProfileEditScreen = (props) => {
         fontWeight: 'bold',
         fontSize: 14,
         }}>
-          {props.route.params.profile.username}
+          {props.profile.email}
         </Text>
 
       </View>
@@ -135,6 +136,7 @@ const ProfileEditScreen = (props) => {
             borderColor: "#A4A4A4",
             borderWidth: 1
           }}
+          value={props.profile.password}
           placeholder = "10-20자 이내" 
           secureTextEntry = { true }
           editable = { props.setPassword } 
@@ -242,13 +244,25 @@ const ProfileEditScreen = (props) => {
         </TouchableOpacity>
       </View>
 
-      <View style ={{
-        marginBottom: 200
-      }}>
-
-      </View>
-      
-
+      <TouchableOpacity
+        style={{
+          alignSelf: "stretch",
+          alignItems: "center",
+          backgroundColor:COLORS.DALGRAK,
+          marginTop: 100,
+        }}
+        onPressOut={props.profileSubmit}
+      >
+        <Text
+          style={{
+            marginVertical: 10,
+            fontSize: FONTS.SIZE.CONTENTS,
+            color: "white",
+          }}
+        >
+          등록
+        </Text>
+      </TouchableOpacity>
   </View>
  
   )

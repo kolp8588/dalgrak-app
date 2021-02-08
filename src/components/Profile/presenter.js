@@ -31,9 +31,7 @@ class Profile extends Component {
         }>
         <View style={styles.header}>
           <TouchableOpacity 
-            onPressOut={() => this.props.navigation.navigate("ProfileEdit", {
-              profile: this.props.profile
-            })}
+            onPressOut={() => this.props.navigation.navigate("ProfileEdit")}
           >
             <ImageBackground
               source={require("../../../assets/images/noPhoto.jpg")}
