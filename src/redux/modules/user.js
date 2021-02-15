@@ -106,6 +106,10 @@ function login(username, password) {
     }
   };
 }
+
+
+
+
 function facebookLogin() {
   return async (dispatch) => {
     try {
@@ -179,6 +183,63 @@ function submitProfile(profile) {
     return false;
   };
 }
+
+
+// 회원가입
+function signUp(request) {
+  const {username, email, password} = request
+  return async (dispatch) => {
+    try {
+      const response = await dalgrakApp
+        .auth()
+        .createUserWithEmailAndPassword(username, password)
+        
+      if (response && response.user) {
+        request.userId = response.user.uid;
+        delete request.userInfo.password;
+
+        if (Constants.isDevice) {
+          const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          const token = (await Notifications.getExpoPushTokenAsync()).data;
+          request.token = token;
+          
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+
+        if (addProfile(request)) {
+          dispatch(setLogIn(response.user.uid));
+          dispatch(setUser(response.user));
+          dispatch(setProfile(request));
+          return true;
+        }
+      } 
+    } catch (error) {
+      let errorCode = error.code;
+      if (errorCode == 'auth/invalid-email') {
+        console.log("Email을 확인해 주세요")
+        Alert.alert("Email을 확인하세요.");
+      } else if (errorCode == 'auth/weak-password') {
+        console.log("비밀번호를 확인해 주세요(6자리 이상)")
+        Alert.alert("비밀번호를 확인하세요(6자리 이상");
+      } else {
+        Alert.alert("에러가 발생했습니다. 다시 시도해 주세요.");
+        console.log(error)
+      }
+    }
+    return false;
+  };
+}
+
 
 async function addProfile(request) {
   try {
@@ -367,6 +428,7 @@ function applySetNotifications(state, action) {
 
 const actionCreators = {
   login,
+  signUp,
   facebookLogin,
   logOut,
   getNotifications,

@@ -2,6 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LogInScreen from "../screens/LogInScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -16,6 +18,14 @@ function LoggedOutNavigation() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{
+              headerShown: false,
+              headerLeft: () => <View />,
+            }}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   );

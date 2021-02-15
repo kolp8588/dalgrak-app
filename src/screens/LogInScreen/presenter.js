@@ -44,15 +44,26 @@ const LogInScreen = (props) => (
         returnKeyType={"send"}
         onSubmitEditing={props.submit}
       />
-      <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
-        <View style={styles.button}>
+     <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
+        <View style={styles.loginButton}>
           {props.isSubmitting ? (
             <ActivityIndicator size="small" color="white" />
           ) : (
-            <Text style={styles.btnText}>Log In</Text>
+            <Text style={[styles.btnText, {color: "white"}]}>로그인</Text>
           )}
         </View>
       </TouchableOpacity>
+      
+      <TouchableOpacity
+        style={styles.touchable}
+        onPress={() => props.navigation.navigate("SignUp")}
+      >
+        <View style={styles.signUpButton}>
+          <Text style={[styles.btnText, {color: COLORS.LIGHT_BLACK}]}>회원가입</Text>
+        </View>
+      </TouchableOpacity>
+            
+      
       <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
         <View style={styles.fbView}>
           <MaterialCommunityIcons
@@ -99,25 +110,11 @@ const styles = StyleSheet.create({
   logo: {
     height: 150,
     resizeMode: "contain",
-    marginTop: 50,
   },
   content: {
     backgroundColor: "white",
     paddingTop: 50,
     alignItems: "center",
-  },
-  fbContainer: {
-    marginTop: 30,
-  },
-  fbView: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  fbText: {
-    color: "gray",
-    marginLeft: 10,
-    fontWeight: "600",
-    fontSize: 14,
   },
   textInput: {
     height: 50,
@@ -134,16 +131,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#3E99EE",
     width: width - 80,
-    marginTop: 25,
   },
-  button: {
-    paddingHorizontal: 7,
+  loginButton: {
+    borderRadius: 5,
     backgroundColor: COLORS.DALGRAK,
     height: 50,
     justifyContent: "center",
   },
+  signUpButton: {
+    borderRadius: 5,
+    backgroundColor: "white",
+    height: 50,
+    justifyContent: "center",
+  },
   btnText: {
-    color: "white",
     fontWeight: "600",
     textAlign: "center",
     fontSize: 14,
