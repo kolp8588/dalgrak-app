@@ -192,11 +192,11 @@ function signUp(request) {
     try {
       const response = await dalgrakApp
         .auth()
-        .createUserWithEmailAndPassword(username, password)
-        
+        .createUserWithEmailAndPassword(email, password)
+
       if (response && response.user) {
         request.userId = response.user.uid;
-        delete request.userInfo.password;
+        delete request.password;
 
         if (Constants.isDevice) {
           const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);

@@ -103,7 +103,7 @@ class Container extends Component {
     
     const { signUp } = this.props;
 
-    if (!isComplete) {
+    if (isComplete) {
       
         const request = {
           username,

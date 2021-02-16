@@ -80,8 +80,8 @@ const SignUpScreen = (props) => (
           secureTextEntry={true}
           value={props.passwordCheck}
           onChangeText={props.changePasswordCheck}
-          returnKeyType={"send"}
-          onSubmitEditing={props.submit}
+          //returnKeyType={"send"}
+          //onSubmitEditing={props.submit}
           maxLength={16}
         />
         {props.passwordCheckErrorMsg != "" && 

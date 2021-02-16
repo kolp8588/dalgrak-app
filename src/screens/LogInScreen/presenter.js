@@ -65,7 +65,11 @@ const LogInScreen = (props) => (
             
       
       <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
-        <View style={styles.fbView}>
+      <View style= {{
+        alignItems:"center",
+        flexDirection: "row",
+        marginTop: 20
+        }}>
           <MaterialCommunityIcons
             name="facebook-box"
             size={22}
@@ -74,16 +78,7 @@ const LogInScreen = (props) => (
           <Text style={styles.fbText}>Log in with Facebook</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.fbContainer}>
-        <View style={styles.fbView}>
-          <MaterialCommunityIcons
-            name="alpha-k-box"
-            size={22}
-            color="#ffe812"
-          />
-          <Text style={styles.fbText}>Log in with Kakao Talk</Text>
-        </View>
-      </TouchableOpacity>
+ 
     </View>
   </View>
 );
